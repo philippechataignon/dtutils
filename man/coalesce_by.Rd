@@ -9,12 +9,12 @@ coalesce_by(dt, by, var = NULL)
 \arguments{
 \item{dt}{a data.table}
 
-\item{by}{name(s) of variable(s) which determines groups (optional)}
+\item{by}{name(s) of variable(s) which determines groups}
 
-\item{var}{name(s) of variable(s) with atomic values}
+\item{var}{name(s) of variable(s) with atomic values ; if 'var' is missing, all variables not in 'by' are selected}
 }
 \value{
-a list with item for each var
+a named list with item for each var
 }
 \description{
 List of

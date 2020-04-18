@@ -1,4 +1,4 @@
-context("coalesce")
+context("coalesce_by")
 library(data.table)
 
 # pour compatibilité seed

@@ -3,9 +3,9 @@
 #' @description
 #' List of
 #' @param dt a data.table
-#' @param by name(s) of variable(s) which determines groups (optional)
-#' @param var name(s) of variable(s) with atomic values
-#' @return a list with item for each var
+#' @param by name(s) of variable(s) which determines groups
+#' @param var name(s) of variable(s) with atomic values ; if 'var' is missing, all variables not in 'by' are selected
+#' @return a named list with item for each var
 #' @examples
 #' library(data.table)
 #' ngrp <- 18000

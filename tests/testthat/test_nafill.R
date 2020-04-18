@@ -1,4 +1,4 @@
-context("na_fill")
+context("na_fill_by")
 library(data.table)
 
 # pour compatibilité seed
@@ -24,6 +24,12 @@ dt[(1:.N %% 5 == 0), e:=NA]
 vars = c("a", "c", "d", "e")
 
 setDTthreads()
+
+dt0 <- copy(dt)
+system.time(na_fill_by(dt0, by="id", inplace=T))
+test_that("na_fill_by0", {
+  expect_equal(dt0[2, a], 5)
+})
 
 dt1 <- copy(dt)
 system.time(na_fill_by(dt1, var=vars, by="id", inplace=T))
@@ -53,7 +59,7 @@ test_that("na_fill_by4", {
 })
 
 dt5 <- copy(dt)
-system.time(na_fill_by(dt5, var=vars, inplace=T))
+system.time(na_fill_by(dt5, inplace=T))
 test_that("na_fill_by5", {
   expect_equal(dt5[2, a], 5)
   expect_false(identical(dt1, dt5))

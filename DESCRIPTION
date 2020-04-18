@@ -1,10 +1,12 @@
 Package: byfunc
 Type: Package
-Title: gforce like functions
-Version: 0.1.0
+Title: Efficient group-by processing functions for data.table
+Version: 0.1.1
 Author: Philippe Chataignon <philippe@chataignon.com>
 Maintainer: Philippe Chataignon <philippe@chataignon.com>
-Description: Efficient group-by processing for data.table.
+Description: 
+  Efficient group-by processing functions for data.table : na_fill
+  and coalesce
 License: GPL
 LazyData: TRUE
 RoxygenNote: 7.1.0
