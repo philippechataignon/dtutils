@@ -1,0 +1,17 @@
+Package: byfunc
+Type: Package
+Title: gforce like functions
+Version: 0.1.0
+Author: Philippe Chataignon <philippe@chataignon.com>
+Maintainer: Philippe Chataignon <philippe@chataignon.com>
+Description: Efficient group-by processing for data.table.
+License: GPL
+LazyData: TRUE
+RoxygenNote: 7.1.0
+Encoding: UTF-8
+Imports: 
+  data.table,
+  Rcpp (>= 0.12.11)
+LinkingTo: Rcpp
+Suggests:
+  testthat
