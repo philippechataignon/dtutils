@@ -1,15 +1,4 @@
 #' @title
-#' Group by variable
-#' @description
-#' Return a forderv vector
-#' @param dt a data.table
-#' @param by name(s) of variable(s) which determines groups
-#' @return a forderv vector with 'starts' attribute
-group <- function(dt, by) {
-  data.table:::forderv(dt, by = by, retGrp = T)
-}
-
-#' @title
 #' na_fill_by Replace NA by constant, previous or next value, optionally by group
 #' @description
 #' List of

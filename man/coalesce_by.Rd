@@ -37,7 +37,8 @@ dt[(1:.N \%\% 4 < 3), c:=NA]
 dt[(1:.N \%\% 5 < 4), d:=NA]
 dt[(1:.N \%\% 6 < 5), e:=NA]
 
-coalesce_by(dt, "id")
+coalesce_by(dt, by="id")
 vars = c("b", "c", "e")
 coalesce_by(dt, var=vars, by=c("id", "a"))
+coalesce_by(dt, var=vars, by=c("a"))
 }
