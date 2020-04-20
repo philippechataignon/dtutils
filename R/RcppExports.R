@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 Ccoalesce_by <- function(x, rows, names) {
-    .Call('_byfunc_Ccoalesce_by', PACKAGE = 'byfunc', x, rows, names)
+    .Call('_dtutils_Ccoalesce_by', PACKAGE = 'dtutils', x, rows, names)
 }
 
 Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
-    .Call('_byfunc_Cna_fill_by', PACKAGE = 'byfunc', x, rows, type, inplace, fill)
+    .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
 }
 

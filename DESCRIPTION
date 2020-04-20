@@ -1,12 +1,13 @@
-Package: byfunc
+Package: dtutils
 Type: Package
-Title: Efficient group-by processing functions for data.table
-Version: 0.1.2
+Title: Miscellaneous Functions for data.table
+Version: 0.2.0
 Author: Philippe Chataignon <philippe@chataignon.com>
 Maintainer: Philippe Chataignon <philippe@chataignon.com>
-Description: 
-  Efficient group-by processing functions for data.table : na_fill
-  and coalesce
+Description: Miscellaneous Functions for data.table:
+  * efficient group-by processing functions for data.table : na_fill_by
+    and coalesce_by
+  * case_when with multiple affectation : case_when_mult
 License: GPL
 LazyData: TRUE
 RoxygenNote: 7.1.0

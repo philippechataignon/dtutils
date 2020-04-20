@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // Ccoalesce_by
 List Ccoalesce_by(List x, IntegerVector rows, CharacterVector names);
-RcppExport SEXP _byfunc_Ccoalesce_by(SEXP xSEXP, SEXP rowsSEXP, SEXP namesSEXP) {
+RcppExport SEXP _dtutils_Ccoalesce_by(SEXP xSEXP, SEXP rowsSEXP, SEXP namesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // Cna_fill_by
 List Cna_fill_by(List x, IntegerVector rows, unsigned int type, bool inplace, RObject fill);
-RcppExport SEXP _byfunc_Cna_fill_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP, SEXP fillSEXP) {
+RcppExport SEXP _dtutils_Cna_fill_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP, SEXP fillSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -35,12 +35,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_byfunc_Ccoalesce_by", (DL_FUNC) &_byfunc_Ccoalesce_by, 3},
-    {"_byfunc_Cna_fill_by", (DL_FUNC) &_byfunc_Cna_fill_by, 5},
+    {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
+    {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 5},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_byfunc(DllInfo *dll) {
+RcppExport void R_init_dtutils(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

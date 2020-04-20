@@ -1,4 +1,4 @@
 library(testthat)
-library(byfunc)
+library(dtutils)
 
-test_check("byfunc")
+test_check("dtutils")
