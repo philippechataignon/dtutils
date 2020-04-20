@@ -29,30 +29,35 @@
 #' coalesce_by(dt, var=vars, by=c("id", "a"))
 #' coalesce_by(dt, var=vars, by=c("a"))
 #' @export
-coalesce_by <- function(dt, by, var=NULL) {
-  if (length(by) == 0) {
-    stop("by cannot be empty")
-  }
+coalesce_by <- function(dt, by=NULL, var=NULL) {
   nm <- names(dt)
+  if (!is.null(by) && !all(by %in% nm)) {
+    stop("When by is not NULL, all names in 'by' must be dt colnames")
+  }
   if (is.null(var)) {
     var <- setdiff(nm, by)
   }
   if (!all(var %in% nm)) {
     stop("All names in 'var' must be dt colnames")
   }
-  if (!all(by %in% nm)) {
-    stop("All names in 'by' must be dt colnames")
-  }
   tt1 <- intersect(by, var)
   if (length(tt1) > 0) {
     stop("Some variables are in 'by' and in 'var': ", tt1)
   }
-  grp = group(dt, by)
-  ret <- as.data.table(Ccoalesce_by(as.list(dt[, ..var]), grp, var))
-  if (length(grp) == 0) {
-    set(ret, j=by, value=dt[attr(grp, "starts"), ..by])
+  if (is.null(by)) {
+    grp = numeric(0)
+    attr(grp, "starts") = 1
+    attr(grp, "maxgrpn") = 1
   } else {
-    set(ret, j=by, value=dt[grp[attr(grp, "starts")], ..by])
+    grp = group(dt, by)
+  }
+  ret <- as.data.table(Ccoalesce_by(as.list(dt[, ..var]), grp, var))
+  if (!is.null(by)) {
+    if (length(grp) == 0) {
+      set(ret, j=by, value=dt[attr(grp, "starts"), ..by])
+    } else {
+      set(ret, j=by, value=dt[grp[attr(grp, "starts")], ..by])
+    }
   }
   setcolorder(ret, c(by, var))
   ret

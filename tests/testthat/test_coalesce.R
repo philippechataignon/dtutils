@@ -25,7 +25,7 @@ dt[(1:.N %% 6 < 5), e:=NA]
 ret1 <- coalesce_by(dt, "id")
 
 test_that("coalesce1", {
-  expect_error(coalesce_by(dt, "ids"), "All names in 'by' must be dt colnames")
+  expect_error(coalesce_by(dt, "ids"), "When by is not NULL, all names in 'by' must be dt colnames")
   expect_equal(ret1[1, id], 2L)
   expect_equal(ret1[1, e], 11L)
 })
@@ -37,3 +37,9 @@ test_that("coalesce1", {
   expect_equal(ret2[1, c], 96.5)
   expect_true(is.na(ret2[.N, e]))
 })
+
+# system.time(dtb1 <- coalesce_by(dt[id %% 2 == 0], var=vars, by=c("id")))
+# system.time(dtb2 <- dt[id %% 2 == 0, coalesce_by(.SD, "id", c("b", "c")), verbose=T])
+# system.time(dtb3 <- dt[id %% 2 == 0, coalesce_by(.SD, var=c("b", "c")), by="id", verbose=T])
+# system.time(dtb4 <- dt[id %% 2 == 0, coalesce_by(.SD, "id"), .SDcols=c("id", "b", "c"), verbose=T])
+# system.time(dtb5 <- dt[id %% 2 == 0, coalesce_by(.SD), by="id", .SDcols=c("b", "c"), verbose=T])

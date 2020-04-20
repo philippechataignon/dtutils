@@ -4,7 +4,7 @@
 \alias{coalesce_by}
 \title{coalesce_by Replace NA by constant, previous or next value, optionally by group}
 \usage{
-coalesce_by(dt, by, var = NULL)
+coalesce_by(dt, by = NULL, var = NULL)
 }
 \arguments{
 \item{dt}{a data.table}
