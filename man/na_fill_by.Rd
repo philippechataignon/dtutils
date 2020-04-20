@@ -2,7 +2,7 @@
 % Please edit documentation in R/na_fill_by.R
 \name{na_fill_by}
 \alias{na_fill_by}
-\title{na_fill_by Replace NA by constant, previous or next value, optionally by group}
+\title{Replace NA by constant, previous or next value, optionally by group}
 \usage{
 na_fill_by(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fill = NA)
 }
@@ -23,7 +23,7 @@ na_fill_by(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fill = NA)
 a list with item for each var
 }
 \description{
-List of
+Replace NA by constant, previous or next value, optionally by group
 }
 \note{
 When \code{type = 0}, all NA values are replaced by the 'fill' value. Ex with 'fill = 0' : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)}

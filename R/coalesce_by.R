@@ -1,7 +1,4 @@
-#' @title
-#' coalesce_by Replace NA by constant, previous or next value, optionally by group
-#' @description
-#' List of
+#' @title Replace NA by constant, previous or next value, optionally by group
 #' @param dt a data.table
 #' @param by name(s) of variable(s) which determines groups
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is missing, all variables not in 'by' are selected

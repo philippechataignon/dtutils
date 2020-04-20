@@ -2,7 +2,7 @@
 % Please edit documentation in R/coalesce_by.R
 \name{coalesce_by}
 \alias{coalesce_by}
-\title{coalesce_by Replace NA by constant, previous or next value, optionally by group}
+\title{Replace NA by constant, previous or next value, optionally by group}
 \usage{
 coalesce_by(dt, by = NULL, var = NULL)
 }
@@ -17,7 +17,7 @@ coalesce_by(dt, by = NULL, var = NULL)
 a named list with item for each var
 }
 \description{
-List of
+Replace NA by constant, previous or next value, optionally by group
 }
 \examples{
 library(data.table)
