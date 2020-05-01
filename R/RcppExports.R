@@ -9,3 +9,7 @@ Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
     .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
 }
 
+Crow_number_by <- function(n, rows) {
+    .Call('_dtutils_Crow_number_by', PACKAGE = 'dtutils', n, rows)
+}
+
