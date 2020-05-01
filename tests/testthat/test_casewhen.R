@@ -1,4 +1,4 @@
-context("case_when_mult_mult")
+context("case_when_mult")
 library(data.table)
 
 test_that("normal use", {

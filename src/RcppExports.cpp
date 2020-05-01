@@ -45,11 +45,37 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Cfirst_by
+LogicalVector Cfirst_by(R_xlen_t n, IntegerVector rows);
+RcppExport SEXP _dtutils_Cfirst_by(SEXP nSEXP, SEXP rowsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< R_xlen_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cfirst_by(n, rows));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Clast_by
+LogicalVector Clast_by(R_xlen_t n, IntegerVector rows);
+RcppExport SEXP _dtutils_Clast_by(SEXP nSEXP, SEXP rowsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< R_xlen_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    rcpp_result_gen = Rcpp::wrap(Clast_by(n, rows));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
     {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 5},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 2},
+    {"_dtutils_Cfirst_by", (DL_FUNC) &_dtutils_Cfirst_by, 2},
+    {"_dtutils_Clast_by", (DL_FUNC) &_dtutils_Clast_by, 2},
     {NULL, NULL, 0}
 };
 

@@ -13,3 +13,11 @@ Crow_number_by <- function(n, rows) {
     .Call('_dtutils_Crow_number_by', PACKAGE = 'dtutils', n, rows)
 }
 
+Cfirst_by <- function(n, rows) {
+    .Call('_dtutils_Cfirst_by', PACKAGE = 'dtutils', n, rows)
+}
+
+Clast_by <- function(n, rows) {
+    .Call('_dtutils_Clast_by', PACKAGE = 'dtutils', n, rows)
+}
+

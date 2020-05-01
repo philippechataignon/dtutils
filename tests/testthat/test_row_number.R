@@ -22,3 +22,14 @@ dt[, row := seq_len(.N), by=id]
 test_that("row_number1",
   expect_equal(dt[num != row, .N], 0)
 )
+
+dt[first_by(dt, "id"), pos := "F"]
+dt[last_by(dt, "id"), pos := "L"]
+
+count <- dt[, .N, pos]
+
+test_that("first_last", {
+  expect_equal(count[pos=="F", N], 18000)
+  expect_equal(count[pos=="L", N], 18000)
+  expect_equal(count[is.na(pos), N], 864000)
+})
