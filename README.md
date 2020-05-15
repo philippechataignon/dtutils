@@ -231,7 +231,7 @@ Argument      |Description
 ### Description
 
 
- Replace NA by constant, previous or next value, optionally by group
+ Returns first non NA value for var by group
 
 
 ### Usage
