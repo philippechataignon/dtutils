@@ -16,6 +16,8 @@
 #'
 #' When \code{type = 3}, LOCF then NOCB. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 1, 1, 2, 2, 3, 3)}.
 #'
+#' When \code{type = 4}, NOCB then LOCF. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, 3)}.
+#'
 #' @examples
 #' library(data.table)
 #' ngrp <- 18000

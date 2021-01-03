@@ -28,7 +28,16 @@ T Cna_fill_type(T x, IntegerVector rows, T fill, unsigned int type = 1, bool inp
       R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
       R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
 
-      if (type & 0b01) {
+      if (type == 4) {
+        for(R_xlen_t i = l - 1; i > f; i--) {
+          R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
+          R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
+          if(T::is_na(ret[r1]) && !T::is_na(ret[r])) {
+            ret[r1] = ret[r];
+          }
+        }
+      }
+      if (type == 1 || type== 3 || type == 4) {
         for(R_xlen_t i = f + 1; i < l; i++) {
           R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
           R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
@@ -38,7 +47,7 @@ T Cna_fill_type(T x, IntegerVector rows, T fill, unsigned int type = 1, bool inp
         }
       }
 
-      if (type & 0b10) {
+      if (type == 2 || type== 3) {
         for(R_xlen_t i = l - 1; i > f; i--) {
           R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
           R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;

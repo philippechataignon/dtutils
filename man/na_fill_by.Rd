@@ -34,6 +34,8 @@ When \code{type = 1}, LOCF = Last Observation Carry Forward. Ex : \code{c(NA, 1,
 When \code{type = 2}, NOCB = Next Observation Carry Backward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, NA)}
 
 When \code{type = 3}, LOCF then NOCB. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 1, 1, 2, 2, 3, 3)}.
+
+When \code{type = 4}, NOCB then LOCF. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, 3)}.
 }
 \examples{
 library(data.table)

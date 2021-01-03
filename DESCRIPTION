@@ -1,7 +1,7 @@
 Package: dtutils
 Type: Package
 Title: Miscellaneous Functions for data.table
-Version: 0.2.3
+Version: 0.2.4
 Author: Philippe Chataignon <philippe@chataignon.com>
 Maintainer: Philippe Chataignon <philippe@chataignon.com>
 Description: Miscellaneous Functions for data.table:
@@ -10,7 +10,7 @@ Description: Miscellaneous Functions for data.table:
   * case_when with multiple affectation : case_when_mult
 License: GPL
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Encoding: UTF-8
 Imports: 
   data.table,
