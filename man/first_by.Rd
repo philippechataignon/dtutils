@@ -4,7 +4,7 @@
 \alias{first_by}
 \title{Returns a logical TRUE for first row of each group}
 \usage{
-first_by(dt, by)
+first_by(dt, by = NULL)
 }
 \arguments{
 \item{dt}{a data.table}

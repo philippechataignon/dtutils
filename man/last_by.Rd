@@ -4,7 +4,7 @@
 \alias{last_by}
 \title{Returns a logical TRUE for last row of each group}
 \usage{
-last_by(dt, by)
+last_by(dt, by = NULL)
 }
 \arguments{
 \item{dt}{a data.table}

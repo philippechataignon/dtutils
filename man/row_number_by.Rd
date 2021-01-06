@@ -4,7 +4,7 @@
 \alias{row_number_by}
 \title{Create a sequence 1...N by group}
 \usage{
-row_number_by(dt, by)
+row_number_by(dt, by = NULL)
 }
 \arguments{
 \item{dt}{a data.table}
