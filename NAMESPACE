@@ -3,6 +3,7 @@
 export(case_when_mult)
 export(coalesce_by)
 export(first_by)
+export(gen_groupingsets)
 export(last_by)
 export(na_fill_by)
 export(row_number_by)

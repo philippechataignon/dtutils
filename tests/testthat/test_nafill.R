@@ -9,14 +9,6 @@ test_that("na_fill_elem", {
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=3)]$val, c(1, 1, 1, 1, 2, 2, 3, 3))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=4)]$val, c(1, 1, 2, 2, 2, 3, 3, 3))
 })
-#'
-#' When \code{type = 1}, LOCF = Last Observation Carry Forward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(NA, 1, 1, 1, 2, 2, 3, 3)}
-#'
-#' When \code{type = 2}, NOCB = Next Observation Carry Backward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, NA)}
-#'
-#' When \code{type = 3}, LOCF then NOCB. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 1, 1, 2, 2, 3, 3)}.
-#'
-#' When \code{type = 4}, NOCB then LOCF. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, 3)}.
 
 # pour compatibilité seed
 suppressWarnings(RNGversion("3.4"))
