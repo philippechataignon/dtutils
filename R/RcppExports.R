@@ -5,6 +5,10 @@ Ccoalesce_by <- function(x, rows, names) {
     .Call('_dtutils_Ccoalesce_by', PACKAGE = 'dtutils', x, rows, names)
 }
 
+Ccumsum_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
+    .Call('_dtutils_Ccumsum_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
+}
+
 Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
     .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
 }

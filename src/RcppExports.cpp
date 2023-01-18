@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // Ccoalesce_by
 List Ccoalesce_by(List x, IntegerVector rows, CharacterVector names);
 RcppExport SEXP _dtutils_Ccoalesce_by(SEXP xSEXP, SEXP rowsSEXP, SEXP namesSEXP) {
@@ -15,6 +20,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type names(namesSEXP);
     rcpp_result_gen = Rcpp::wrap(Ccoalesce_by(x, rows, names));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Ccumsum_by
+List Ccumsum_by(List x, IntegerVector rows, unsigned int type, bool inplace, RObject fill);
+RcppExport SEXP _dtutils_Ccumsum_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP, SEXP fillSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP);
+    Rcpp::traits::input_parameter< RObject >::type fill(fillSEXP);
+    rcpp_result_gen = Rcpp::wrap(Ccumsum_by(x, rows, type, inplace, fill));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -72,6 +92,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
+    {"_dtutils_Ccumsum_by", (DL_FUNC) &_dtutils_Ccumsum_by, 5},
     {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 5},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 2},
     {"_dtutils_Cfirst_by", (DL_FUNC) &_dtutils_Cfirst_by, 2},
