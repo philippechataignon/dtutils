@@ -24,17 +24,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // Ccumsum_by
-List Ccumsum_by(List x, IntegerVector rows, unsigned int type, bool inplace, RObject fill);
-RcppExport SEXP _dtutils_Ccumsum_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP, SEXP fillSEXP) {
+List Ccumsum_by(List x, IntegerVector rows);
+RcppExport SEXP _dtutils_Ccumsum_by(SEXP xSEXP, SEXP rowsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type type(typeSEXP);
-    Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP);
-    Rcpp::traits::input_parameter< RObject >::type fill(fillSEXP);
-    rcpp_result_gen = Rcpp::wrap(Ccumsum_by(x, rows, type, inplace, fill));
+    rcpp_result_gen = Rcpp::wrap(Ccumsum_by(x, rows));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -92,7 +89,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
-    {"_dtutils_Ccumsum_by", (DL_FUNC) &_dtutils_Ccumsum_by, 5},
+    {"_dtutils_Ccumsum_by", (DL_FUNC) &_dtutils_Ccumsum_by, 2},
     {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 5},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 2},
     {"_dtutils_Cfirst_by", (DL_FUNC) &_dtutils_Cfirst_by, 2},
