@@ -22,7 +22,9 @@ T Ccumsum_type(T x, IntegerVector rows) {
     for(R_xlen_t i = f; i < l; i++) {
       R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
       R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
-      if (i == f) {
+      if(T::is_na(x[i])) {
+        ret[r] = ret[r1];
+      } else if (i == f) {
         ret[r] = x[i];
       } else {
         ret[r] = ret[r1] + x[i];
