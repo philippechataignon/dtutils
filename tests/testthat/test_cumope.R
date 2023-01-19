@@ -9,7 +9,7 @@ nbygrp <- 50
 set.seed(64)
 dt <- data.table(
   id=rep(1:ngrp, each=nbygrp),
-  c=sample((1:100 * 0.001 + 0.5), nbygrp * ngrp, replace=T),
+  c=sample((1:100 * 0.001 + 0.1), nbygrp * ngrp, replace=T),
   d=sample(1:100, nbygrp * ngrp, replace=T),
   e=sample(1:100, nbygrp * ngrp, replace=T)
 )
@@ -42,3 +42,11 @@ test_that("cummax1", {
   expect_equal(dt$wwww, dt$zzzz)
   expect_equal(is.na(dt[899999, zzzz]), TRUE)
 })
+
+dt[, s := cumsurv_by(.SD, "c", "id")]
+dt[, p := 1 - cumprod(1 - c), by="id"]
+test_that("cumsurv", {
+  expect_equal(dt$s, dt$p)
+  expect_equal(is.na(dt[899999, s]), TRUE)
+})
+

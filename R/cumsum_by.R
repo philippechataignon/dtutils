@@ -30,6 +30,8 @@ cumope_by <- function(dt, var = NULL, by = NULL, type) {
     ret <- Ccummax_by(ldt, grp)
   } else if (type == 4) {
     ret <- Ccummin_by(ldt, grp)
+  } else if (type == 5) {
+    ret <- Ccumsurv_by(ldt, grp)
   }
   ret
 }
@@ -39,6 +41,7 @@ cumope_by <- function(dt, var = NULL, by = NULL, type) {
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
 #' @return a list with item for each var
+#' @export
 cumsum_by <- function(dt, var = NULL, by = NULL) {
   cumope_by(dt, var, by, 1)
 }
@@ -47,6 +50,7 @@ cumsum_by <- function(dt, var = NULL, by = NULL) {
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
 #' @return a list with item for each var
+#' @export
 cumprod_by <- function(dt, var = NULL, by = NULL) {
   cumope_by(dt, var, by, 2)
 }
@@ -55,6 +59,7 @@ cumprod_by <- function(dt, var = NULL, by = NULL) {
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
 #' @return a list with item for each var
+#' @export
 cummax_by <- function(dt, var = NULL, by = NULL) {
   cumope_by(dt, var, by, 3)
 }
@@ -63,6 +68,16 @@ cummax_by <- function(dt, var = NULL, by = NULL) {
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
 #' @return a list with item for each var
+#' @export
 cummin_by <- function(dt, var = NULL, by = NULL) {
   cumope_by(dt, var, by, 4)
+}
+#' @title Cumulative surv by
+#' @param dt a data.table
+#' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
+#' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
+#' @return a list with item for each var
+#' @export
+cumsurv_by <- function(dt, var = NULL, by = NULL) {
+  cumope_by(dt, var, by, 5)
 }

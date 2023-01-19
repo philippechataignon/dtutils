@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 template<typename T>
-T Ccumsum_type(T x, IntegerVector rows, int type) {
+T Ccumope_type(T x, IntegerVector rows, int type) {
   R_xlen_t n = x.size();
   R_xlen_t nrows = rows.size();
 
@@ -29,8 +29,12 @@ T Ccumsum_type(T x, IntegerVector rows, int type) {
         na[0] = x[i];
         copy_na = true;
       } else if (i == f) {
+        if (type == 5) {
+          cum[0] = 1 - x[i];
+        } else {
+          cum[0] = x[i];
+        }
         ret[r] = x[i];
-        cum[0] = x[i];
         copy_na = false;
       } else if (copy_na) {
         ret[r] = na[0];
@@ -47,8 +51,14 @@ T Ccumsum_type(T x, IntegerVector rows, int type) {
           if (x[i] < cum[0]) {
             cum[0] = x[i];
           }
+        } else if (type == 5) {
+          cum[0] = cum[0] * (1 - x[i]);
         }
-        ret[r] = cum[0];
+        if (type == 5) {
+          ret[r] = 1 - cum[0];
+        } else {
+          ret[r] = cum[0];
+        }
       }
     }
   }
@@ -59,9 +69,9 @@ T Ccumsum_type(T x, IntegerVector rows, int type) {
 List Ccumsum_by(List x, IntegerVector rows) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Ccumsum_type<NumericVector>(as<NumericVector>(*it), rows, 1);
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 1);
     } else if(is<IntegerVector>(*it)){
-      *it = Ccumsum_type<IntegerVector>(as<IntegerVector>(*it), rows, 1);
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 1);
     } else {
       stop("cumsum error: unimplemented type");
     }
@@ -72,9 +82,9 @@ List Ccumsum_by(List x, IntegerVector rows) {
 List Ccumprod_by(List x, IntegerVector rows) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Ccumsum_type<NumericVector>(as<NumericVector>(*it), rows, 2);
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 2);
     } else if(is<IntegerVector>(*it)){
-      *it = Ccumsum_type<IntegerVector>(as<IntegerVector>(*it), rows, 2);
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 2);
     } else {
       stop("cumprod error: unimplemented type");
     }
@@ -86,11 +96,11 @@ List Ccumprod_by(List x, IntegerVector rows) {
 List Ccummax_by(List x, IntegerVector rows) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Ccumsum_type<NumericVector>(as<NumericVector>(*it), rows, 3);
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 3);
     } else if(is<IntegerVector>(*it)){
-      *it = Ccumsum_type<IntegerVector>(as<IntegerVector>(*it), rows, 3);
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 3);
     } else {
-      stop("cumprod error: unimplemented type");
+      stop("cummax error: unimplemented type");
     }
   }
   return x;
@@ -99,11 +109,24 @@ List Ccummax_by(List x, IntegerVector rows) {
 List Ccummin_by(List x, IntegerVector rows) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Ccumsum_type<NumericVector>(as<NumericVector>(*it), rows, 4);
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 4);
     } else if(is<IntegerVector>(*it)){
-      *it = Ccumsum_type<IntegerVector>(as<IntegerVector>(*it), rows, 4);
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 4);
     } else {
-      stop("cumprod error: unimplemented type");
+      stop("cummin error: unimplemented type");
+    }
+  }
+  return x;
+}
+// [[Rcpp::export]]
+List Ccumsurv_by(List x, IntegerVector rows) {
+  for(List::iterator it = x.begin(); it != x.end(); ++it) {
+    if(is<NumericVector>(*it)){
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 5);
+    } else if(is<IntegerVector>(*it)){
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 5);
+    } else {
+      stop("cumsurv error: unimplemented type");
     }
   }
   return x;
