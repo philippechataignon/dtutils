@@ -3,8 +3,6 @@
 export(DT)
 export(case_when_mult)
 export(coalesce_by)
-export(cumprod_by)
-export(cumsum_by)
 export(first_by)
 export(gen_groupingsets)
 export(last_by)
