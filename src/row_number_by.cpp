@@ -14,3 +14,16 @@ logicals Cfirst_by(int n, integers rows, integers grps) {
   }
   return ret;
 }
+
+[[cpp11::register]]
+logicals Clast_by(int n, integers rows, integers grps) {
+  writable::logicals ret(n);
+  for(int i=0; i < ret.size(); i++) {
+    ret[i] = FALSE;
+  }
+  for(int g=0; g < grps.size(); g++) {
+    int l = g == (grps.size() - 1) ? n : grps[g + 1] - 1;
+    ret[l - 1] = TRUE;
+  }
+  return ret;
+}

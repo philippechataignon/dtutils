@@ -3,3 +3,7 @@
 Cfirst_by <- function(n, rows, grps) {
   .Call(`_dtutils_Cfirst_by`, n, rows, grps)
 }
+
+Clast_by <- function(n, rows, grps) {
+  .Call(`_dtutils_Clast_by`, n, rows, grps)
+}
