@@ -50,3 +50,7 @@ test_that("cumsurv", {
   expect_equal(is.na(dt[899999, s]), TRUE)
 })
 
+varnum <- names(dt)[sapply(dt, is.numeric)]
+varnum <- varnum[!varnum == "id"]
+varcum <- paste("cum", varnum, sep="_")
+dt[, (varcum) := cumsum_by(.SD, varnum, by="id")]
