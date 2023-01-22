@@ -37,3 +37,14 @@ last_by <- function(dt, by=NULL) {
   }
   Clast_by(dt[,.N], grp, starts)
 }
+
+row_number_by <- function(dt, by=NULL) {
+  if (is.null(by)) {
+    grp = numeric(0)
+    starts = 1
+  } else {
+    grp = group(dt, by)
+    starts = attr(grp, "starts")
+  }
+  Crow_number_by(dt[,.N], grp, starts)
+}

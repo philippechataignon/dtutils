@@ -16,6 +16,13 @@ dt <- data.table(
   e=sample(1:100, nbygrp * ngrp, replace=T)
 )
 
+dt[, num := row_number_by(dt, "id")]
+dt[, row := seq_len(.N), by=id]
+
+test_that("row_number1",
+          expect_equal(dt[num != row, .N], 0)
+)
+
 dt[first_by(dt, "id"), pos := "F"]
 dt[last_by(dt, "id"), pos := "L"]
 

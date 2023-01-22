@@ -27,3 +27,20 @@ logicals Clast_by(int n, integers rows, integers grps) {
   }
   return ret;
 }
+
+[[cpp11::register]]
+integers Crow_number_by(int n, integers rows, integers grps) {
+  writable::integers ret(n);
+  int nrows = rows.size();
+
+  for(int g=0; g < grps.size(); g++) {
+    int f = grps[g] - 1;
+    int l = g == (grps.size() - 1) ? n : grps[g + 1] - 1;
+    int num = 1;
+    for(int i = f; i < l; i++) {
+      int r  = nrows == 0 ? i : rows[i] - 1;
+      ret[r] = num++;
+    }
+  }
+  return ret;
+}

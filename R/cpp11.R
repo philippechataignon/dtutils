@@ -7,3 +7,7 @@ Cfirst_by <- function(n, rows, grps) {
 Clast_by <- function(n, rows, grps) {
   .Call(`_dtutils_Clast_by`, n, rows, grps)
 }
+
+Crow_number_by <- function(n, rows, grps) {
+  .Call(`_dtutils_Crow_number_by`, n, rows, grps)
+}
