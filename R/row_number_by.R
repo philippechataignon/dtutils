@@ -10,10 +10,10 @@
 first_by <- function(dt, by=NULL) {
   if (is.null(by)) {
     grp = numeric(0)
-    attr(grp, "starts") = 1
-    attr(grp, "maxgrpn") = 1
+    starts = 1
   } else {
     grp = group(dt, by)
+    starts = attr(grp, "starts")
   }
-  Cfirst_by(dt[,.N], grp, attr(grp, "starts"))
+  Cfirst_by(dt[,.N], grp, starts)
 }

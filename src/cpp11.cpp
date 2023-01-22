@@ -5,7 +5,7 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
-// dt11.cpp
+// row_number_by.cpp
 logicals Cfirst_by(int n, integers rows, integers grps);
 extern "C" SEXP _dtutils_Cfirst_by(SEXP n, SEXP rows, SEXP grps) {
   BEGIN_CPP11
