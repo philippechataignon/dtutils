@@ -1,13 +1,11 @@
-#include <cpp11.hpp>
-
+#include "cpp11.hpp"
 using namespace cpp11;
+namespace writable = cpp11::writable;
 
 [[cpp11::register]]
-logicals Cfirst_by(int n, integers rows) {
+logicals Cfirst_by(int n, integers rows, integers grps) {
   int nrows = rows.size();
-  integers grps = rows.attr("starts");
   R_xlen_t ngrps = grps.size();
-
   writable::logicals ret(n);
 
   for(int g=0; g<ngrps; g++) {
@@ -19,16 +17,4 @@ logicals Cfirst_by(int n, integers rows) {
     }
   }
   return ret;
-NumericVector timesTwo(NumericVector x) {
-  return x * 2;
 }
-
-
-// You can include R code blocks in C++ files processed with sourceCpp
-// (useful for testing and development). The R code will be automatically
-// run after the compilation.
-//
-
-/*** R
-timesTwo(42)
-*/

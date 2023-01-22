@@ -1,8 +1,5 @@
-#' @useDynLib dtutils
-#' @importFrom Rcpp evalCpp
-#'
+#' @useDynLib dtutils, .registration = TRUE
 #' @import data.table
-#'
 .onAttach <- function(libname, pkgname) {
   if (!interactive()) return
   packageStartupMessage(paste("Package dtutils", utils::packageVersion("dtutils")))

@@ -10,11 +10,12 @@ Description: Miscellaneous Functions for data.table:
   * case_when with multiple affectation : case_when_mult
 License: GPL
 LazyData: TRUE
-RoxygenNote: 7.1.1
 Encoding: UTF-8
 Imports: 
   data.table,
-  Rcpp (>= 0.12.11)
-LinkingTo: Rcpp
+  cpp11
+LinkingTo: cpp11
 Suggests:
   testthat
+RoxygenNote: 7.2.1
+SystemRequirements: C++11
