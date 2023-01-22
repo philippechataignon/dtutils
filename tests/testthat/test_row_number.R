@@ -19,5 +19,5 @@ dt <- data.table(
 dt[first_by(dt, "id"), pos := "F"]
 
 test_that("first_last", {
-  expect_equal(count[pos=="F", N], 18000)
+  expect_equal(dt[pos=="F", .N], 18000)
 })
