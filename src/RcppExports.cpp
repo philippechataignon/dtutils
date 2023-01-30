@@ -134,6 +134,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Cany_by
+LogicalVector Cany_by(LogicalVector x, IntegerVector rows);
+RcppExport SEXP _dtutils_Cany_by(SEXP xSEXP, SEXP rowsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cany_by(x, rows));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Call_by
+LogicalVector Call_by(LogicalVector x, IntegerVector rows);
+RcppExport SEXP _dtutils_Call_by(SEXP xSEXP, SEXP rowsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    rcpp_result_gen = Rcpp::wrap(Call_by(x, rows));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
@@ -146,6 +170,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 2},
     {"_dtutils_Cfirst_by", (DL_FUNC) &_dtutils_Cfirst_by, 2},
     {"_dtutils_Clast_by", (DL_FUNC) &_dtutils_Clast_by, 2},
+    {"_dtutils_Cany_by", (DL_FUNC) &_dtutils_Cany_by, 2},
+    {"_dtutils_Call_by", (DL_FUNC) &_dtutils_Call_by, 2},
     {NULL, NULL, 0}
 };
 

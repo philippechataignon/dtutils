@@ -58,3 +58,39 @@ last_by <- function(dt, by=NULL) {
   }
   Clast_by(dt[,.N], grp)
 }
+
+#' @title Returns a logical TRUE if one row is TRUE
+#' @param x a logical vector
+#' @param by name(s) of variable(s) which determines groups
+#' @return an vector of logical
+#' @export
+any_by <- function(df, x, by=NULL) {
+  if (is.null(by)) {
+    grp = numeric(0)
+    attr(grp, "starts") = 1
+    attr(grp, "maxgrpn") = 1
+  } else {
+    grp = group(df, by)
+  }
+  val <- Cany_by(x, grp)
+  ret <- data.table(df[attr(grp, "starts"), ..by], val)
+  setnames(ret, c(by, "V1"))
+}
+
+#' @title Returns a logical TRUE if one row is TRUE
+#' @param x a logical vector
+#' @param by name(s) of variable(s) which determines groups
+#' @return an vector of logical
+#' @export
+all_by <- function(df, x, by=NULL) {
+  if (is.null(by)) {
+    grp = numeric(0)
+    attr(grp, "starts") = 1
+    attr(grp, "maxgrpn") = 1
+  } else {
+    grp = group(df, by)
+  }
+  val <- Call_by(x, grp)
+  ret <- data.table(df[attr(grp, "starts"), ..by], val)
+  setnames(ret, c(by, "V1"))
+}

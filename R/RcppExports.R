@@ -41,3 +41,11 @@ Clast_by <- function(n, rows) {
     .Call('_dtutils_Clast_by', PACKAGE = 'dtutils', n, rows)
 }
 
+Cany_by <- function(x, rows) {
+    .Call('_dtutils_Cany_by', PACKAGE = 'dtutils', x, rows)
+}
+
+Call_by <- function(x, rows) {
+    .Call('_dtutils_Call_by', PACKAGE = 'dtutils', x, rows)
+}
+
