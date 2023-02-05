@@ -75,7 +75,7 @@ na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fi
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  ret <- Cna_fill_by(ldt, grp, type, inplace, fill)
+  ret <- Cna_fill_by(ldt, grp, attr(grp, "starts"), type)
   if (inplace)
     invisible(ret)
   else
