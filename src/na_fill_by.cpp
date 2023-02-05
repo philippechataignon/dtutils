@@ -12,12 +12,12 @@
 //   return input;
 // }
 
-template<typename R, typename T>
-R Cna_fill_type(T input, cpp11::integers rows, cpp11::integers starts, int type) {
+template<typename R, typename T, typename F>
+R Cna_fill_type(T input, cpp11::integers rows, cpp11::integers starts, int type, F fill) {
   R out = input;
   for (int i = 0; i < input.size(); i++) {
     if (cpp11::is_na(input[i])) {
-      out[i] = 0;
+      out[i] = fill;
     } else {
       out[i] = input[i];
     }
@@ -63,18 +63,18 @@ R Cna_fill_type(T input, cpp11::integers rows, cpp11::integers starts, int type)
 
 [[cpp11::register]]
 cpp11::writable::list Cna_fill_by(cpp11::writable::list input,
-                                  cpp11::integers rows, cpp11::integers starts, int type) {
+                                  cpp11::integers rows, cpp11::integers starts, int type, cpp11::sexp fill) {
   for (auto col: input) {
     switch (TYPEOF(col)) {
       // case LGLSXP:
       //   col = Cna_fill_type<cpp11::writable::logicals>(cpp11::as_cpp<cpp11::logicals>(col), rows, starts, type);
       //   break;
       case INTSXP:
-        col = Cna_fill_type<cpp11::writable::integers, cpp11::integers>(cpp11::as_cpp<cpp11::integers>(col), rows, starts, type);
+        col = Cna_fill_type<cpp11::writable::integers, cpp11::integers, int>(cpp11::as_cpp<cpp11::integers>(col), rows, starts, type, cpp11::as_cpp<int>(fill));
         break;
-      // case REALSXP:
-      //   col = Cna_fill_type<cpp11::writable::doubles>(cpp11::as_cpp<cpp11::doubles>(col), rows, starts, type);
-      //   break;
+      case REALSXP:
+        col = Cna_fill_type<cpp11::writable::doubles, cpp11::doubles, double>(cpp11::as_cpp<cpp11::doubles>(col), rows, starts, type, cpp11::as_cpp<double>(fill));
+        break;
       // case STRSXP:
       //   col = Cna_fill_type<cpp11::writable::strings>(cpp11::as_cpp<cpp11::strings>(col), rows, starts, type);
       //   break;
