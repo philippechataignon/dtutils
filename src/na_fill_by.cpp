@@ -17,12 +17,12 @@ T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace, T na) 
   T ret = inplace ? x : clone(x);
   T tmp(1);
 
-  tmp = na;
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
 
     if (type == 1 || type== 3) {
+      tmp = clone(na);
       for(R_xlen_t i = f; i < l; i++) {
         R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
         if(T::is_na(ret[r])) {
@@ -33,8 +33,8 @@ T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace, T na) 
       }
     }
 
-    tmp = na;
     if (type == 2 || type== 3) {
+      tmp = clone(na);
       for(R_xlen_t i = l - 1; i >= f; i--) {
         R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
         if(T::is_na(ret[r])) {
