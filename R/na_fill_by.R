@@ -45,7 +45,7 @@
 #' dt3 <- copy(dt)
 #' dt3[, na_fill_by(.SD, vars, "id", inplace=TRUE)]
 #' @export
-na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fill = NA) {
+na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L) {
   nm <- names(dt)
   if (!is.null(by) && !all(by %in% nm)) {
     stop("When by is not NULL, all names in 'by' must be dt colnames")
@@ -60,11 +60,8 @@ na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fi
   if (length(tt1) > 0) {
     stop("Some variables are in 'by' and in 'var': ", tt1)
   }
-  if (!length(type) == 1L && type < 0 && type > 3) {
-    stop("type must be 0, 1, 2 or 3")
-  }
-  if (!length(inplace) == 1L) {
-    stop("inplace must be TRUE or FALSE")
+  if (!length(type) == 1L && type < 1 && type > 3) {
+    stop("type must be 1, 2 or 3")
   }
   if (is.null(by)) {
     grp = numeric(0)
@@ -75,9 +72,5 @@ na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fi
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  ret <- Cna_fill_by(ldt, grp, attr(grp, "starts"), type)
-  if (inplace)
-    invisible(ret)
-  else
-    ret
+  Cna_fill_by(ldt, grp, attr(grp, "starts"), type)
 }
