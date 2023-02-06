@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 template<typename T>
-T Cna_fill_type(T x, IntegerVector rows, unsigned int type = 1, bool inplace = false) {
+T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace) {
   R_xlen_t n = x.size();
   R_xlen_t nrows = rows.size();
 
@@ -44,7 +44,7 @@ T Cna_fill_type(T x, IntegerVector rows, unsigned int type = 1, bool inplace = f
 }
 
 // [[Rcpp::export]]
-List Cna_fill_by(List x, IntegerVector rows, unsigned int type = 1, bool inplace = false) {
+List Cna_fill_by(List x, IntegerVector rows, unsigned int type, bool inplace) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
       *it = Cna_fill_type<NumericVector>(as<NumericVector>(*it), rows, type, inplace);

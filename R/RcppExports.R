@@ -25,7 +25,7 @@ Ccumsurv_by <- function(x, rows) {
     .Call('_dtutils_Ccumsurv_by', PACKAGE = 'dtutils', x, rows)
 }
 
-Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE) {
+Cna_fill_by <- function(x, rows, type, inplace) {
     .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace)
 }
 
