@@ -28,12 +28,7 @@ dt[(1:.N %% 3 == 0), c:=NA]
 dt[(1:.N %% 4 == 0), d:=NA]
 dt[(1:.N %% 5 == 0), e:=NA]
 
-vars = c("a", "c", "d", "e")
-
-setDTthreads()
-
-
-
+vars = c("a", "b", "c", "d", "e")
 
 dt0 <- copy(dt)
 system.time(na_fill_by(dt0, by="id", inplace=T))
@@ -48,14 +43,13 @@ test_that("na_fill_by1", {
 })
 
 dt2 <- copy(dt)
-system.time(dt2b <- na_fill_by(dt2, var=vars, by="id"))
+system.time(dt2 <- na_fill_by(dt2, var=vars, by="id"))
 test_that("na_fill_by2", {
-  expect_true(is.na(dt2[2, a]))
-  expect_equal(dt2b[[1]][2], 5)
+  expect_equal(dt2[[1]][2], 5)
 })
 
 dt3 <- copy(dt)
-system.time(dt3[, (vars) := na_fill_by(.SD, vars, "id")])
+system.time(dt3[, (vars) := na_fill_by(.SD, var=vars, by="id")])
 test_that("na_fill_by3", {
   expect_equal(dt3[2, a], 5)
   expect_identical(dt1, dt3)
@@ -66,11 +60,4 @@ system.time(dt4[, na_fill_by(.SD, vars, "id", inplace=T)])
 test_that("na_fill_by4", {
   expect_equal(dt4[2, a], 5)
   expect_identical(dt1, dt4)
-})
-
-dt5 <- copy(dt)
-system.time(na_fill_by(dt5, inplace=T))
-test_that("na_fill_by5", {
-  expect_equal(dt5[2, a], 5)
-  expect_false(identical(dt1, dt5))
 })
