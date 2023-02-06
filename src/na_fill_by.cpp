@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 template<typename T>
-T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace) {
+T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace, T na) {
   R_xlen_t n = x.size();
   R_xlen_t nrows = rows.size();
 
@@ -47,15 +47,13 @@ T Cna_fill_type(T x, IntegerVector rows, unsigned int type, bool inplace) {
 List Cna_fill_by(List x, IntegerVector rows, unsigned int type, bool inplace) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Cna_fill_type<NumericVector>(as<NumericVector>(*it), rows, type, inplace);
+      *it = Cna_fill_type<NumericVector>(as<NumericVector>(*it), rows, type, inplace, NumericVector::create(NA_REAL));
     } else if(is<IntegerVector>(*it)){
-      *it = Cna_fill_type<IntegerVector>(as<IntegerVector>(*it), rows, type, inplace);
+      *it = Cna_fill_type<IntegerVector>(as<IntegerVector>(*it), rows, type, inplace, IntegerVector::create(NA_INTEGER));
     } else if(is<StringVector>(*it)){
-      *it = Cna_fill_type<StringVector> (as<StringVector>(*it),  rows, type, inplace);
+      *it = Cna_fill_type<StringVector> (as<StringVector>(*it),  rows, type, inplace, CharacterVector::create(NA_STRING));
     } else if(is<LogicalVector>(*it)){
-      *it = Cna_fill_type<LogicalVector>(as<LogicalVector>(*it), rows, type, inplace);
-    } else if(is<ComplexVector>(*it)){
-      *it = Cna_fill_type<ComplexVector>(as<ComplexVector>(*it), rows, type, inplace);
+      *it = Cna_fill_type<LogicalVector>(as<LogicalVector>(*it), rows, type, inplace, LogicalVector::create(NA_LOGICAL));
     } else {
       stop("na_fill error: unimplemented type");
     }
