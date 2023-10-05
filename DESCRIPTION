@@ -1,13 +1,14 @@
 Package: dtutils
 Type: Package
 Title: Miscellaneous Functions for data.table
-Version: 0.3.1.2
+Version: 0.4
 Author: Philippe Chataignon <philippe@chataignon.com>
 Maintainer: Philippe Chataignon <philippe@chataignon.com>
 Description: Miscellaneous Functions for data.table:
   * efficient group-by processing functions for data.table : 
     na_fill_by, coalesce_by, row_number_by...
   * case_when with multiple affectation : case_when_mult
+  * cumulative sum and prob : cumsum_by, cumprod_by
 License: GPL
 LazyData: TRUE
 RoxygenNote: 7.2.3

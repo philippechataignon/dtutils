@@ -13,40 +13,20 @@ dt <- data.table(
   d=sample(1:100, nbygrp * ngrp, replace=T),
   e=sample(1:100, nbygrp * ngrp, replace=T)
 )
+dt[, alea := runif(.N)]
 dt[899990, c := NA]
+dt = dt[order(alea)][, alea := NULL]
 
 dt[, z := cumsum_by(.SD, "c", "id")]
 dt[, w := cumsum(c), by="id"]
 test_that("cumsum1", {
   expect_equal(dt$w, dt$z)
-  expect_equal(is.na(dt[899999, z]), TRUE)
+  expect_equal(is.na(dt[is.na(c), z]), TRUE)
 })
 
 dt[, zz := cumprod_by(.SD, "c", "id")]
 dt[, ww := cumprod(c), by="id"]
 test_that("cumprod1", {
   expect_equal(dt$ww, dt$zz)
-  expect_equal(is.na(dt[899999, zz]), TRUE)
+  expect_equal(is.na(dt[is.na(c), zz]), TRUE)
 })
-
-dt[, zzz := cummax_by(.SD, "c", "id")]
-dt[, www := cummax(c), by="id"]
-test_that("cummax1", {
-  expect_equal(dt$www, dt$zzz)
-  expect_equal(is.na(dt[899999, zzz]), TRUE)
-})
-
-dt[, zzzz := cummin_by(.SD, "c", "id")]
-dt[, wwww := cummin(c), by="id"]
-test_that("cummax1", {
-  expect_equal(dt$wwww, dt$zzzz)
-  expect_equal(is.na(dt[899999, zzzz]), TRUE)
-})
-
-dt[, s := cumsurv_by(.SD, "c", "id")]
-dt[, p := 1 - cumprod(1 - c), by="id"]
-test_that("cumsurv", {
-  expect_equal(dt$s, dt$p)
-  expect_equal(is.na(dt[899999, s]), TRUE)
-})
-

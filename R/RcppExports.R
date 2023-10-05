@@ -13,18 +13,6 @@ Ccumprod_by <- function(x, rows) {
     .Call('_dtutils_Ccumprod_by', PACKAGE = 'dtutils', x, rows)
 }
 
-Ccummax_by <- function(x, rows) {
-    .Call('_dtutils_Ccummax_by', PACKAGE = 'dtutils', x, rows)
-}
-
-Ccummin_by <- function(x, rows) {
-    .Call('_dtutils_Ccummin_by', PACKAGE = 'dtutils', x, rows)
-}
-
-Ccumsurv_by <- function(x, rows) {
-    .Call('_dtutils_Ccumsurv_by', PACKAGE = 'dtutils', x, rows)
-}
-
 Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
     .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
 }
