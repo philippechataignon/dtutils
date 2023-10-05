@@ -20,19 +20,17 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
   for(int i=0; i < ngrps; i++) {
     first[i] = true;
   }
-  R_xlen_t f, l, r, p;
   for(int g=0; g < ngrps; g++) {
-    f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
-    l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+    R_xlen_t f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
+    R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
     for(R_xlen_t i = f; i < l; i++) {
+      R_xlen_t r, p;
       if (nrows == 0) {
         r = i;
         p = i - 1;
       } else {
         r = rows[i] - 1;
-        if (i >= 1) {
-          p = rows[i - 1] - 1;
-        }
+        p = rows[i >= 1 ? i - 1 : 0] - 1;
       }
       if (first[g]) {
         ret[r] = x[r];
