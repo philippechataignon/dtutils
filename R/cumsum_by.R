@@ -22,12 +22,7 @@ cumope_by <- function(dt, var = NULL, by = NULL, type) {
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  if (type == 1) {
-    ret <- Ccumsum_by(ldt, grp)
-  } else if (type == 2) {
-    ret <- Ccumprod_by(ldt, grp)
-  }
-  ret
+  Ccumope_by(ldt, grp, type)
 }
 
 #' @title Cumulative sum by

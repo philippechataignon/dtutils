@@ -1,7 +1,7 @@
 Package: dtutils
 Type: Package
 Title: Miscellaneous Functions for data.table
-Version: 0.4
+Version: 0.4.0.1
 Author: Philippe Chataignon <philippe@chataignon.com>
 Maintainer: Philippe Chataignon <philippe@chataignon.com>
 Description: Miscellaneous Functions for data.table:

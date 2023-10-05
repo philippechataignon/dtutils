@@ -20,32 +20,28 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
   for(int i=0; i < ngrps; i++) {
     first[i] = true;
   }
+  R_xlen_t f, l, r, p;
   for(int g=0; g < ngrps; g++) {
-    R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
-    R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+    f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
+    l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
     for(R_xlen_t i = f; i < l; i++) {
-      R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
-      R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
+      if (nrows == 0) {
+        r = i;
+        p = i - 1;
+      } else {
+        r = rows[i] - 1;
+        if (i >= 1) {
+          p = rows[i - 1] - 1;
+        }
+      }
       if (first[g]) {
         ret[r] = x[r];
         first[g] = false;
       } else {
           if (type == 1) {
-            ret[r] = ret[r1] + x[r];
+            ret[r] = ret[p] + x[r];
         } else if (type == 2) {
-            ret[r] = ret[r1] * x[r];
-        } else if (type == 3) {
-          if (x[r] > ret[r1]) {
-            ret[r] = x[r];
-          } else {
-            ret[r] = ret[r1];
-          }
-        } else if (type == 4) {
-          if (x[r] < ret[r1]) {
-            ret[r] = x[r];
-          } else {
-            ret[r] = ret[r1];
-          }
+            ret[r] = ret[p] * x[r];
         }
       }
     }
@@ -54,27 +50,14 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
 }
 
 // [[Rcpp::export]]
-List Ccumsum_by(List x, IntegerVector rows) {
+List Ccumope_by(List x, IntegerVector rows, int type) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 1);
+      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, type);
     } else if(is<IntegerVector>(*it)){
-      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 1);
+      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, type);
     } else {
       stop("cumsum error: unimplemented type");
-    }
-  }
-  return x;
-}
-// [[Rcpp::export]]
-List Ccumprod_by(List x, IntegerVector rows) {
-  for(List::iterator it = x.begin(); it != x.end(); ++it) {
-    if(is<NumericVector>(*it)){
-      *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, 2);
-    } else if(is<IntegerVector>(*it)){
-      *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, 2);
-    } else {
-      stop("cumprod error: unimplemented type");
     }
   }
   return x;
