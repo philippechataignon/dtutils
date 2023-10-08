@@ -27,7 +27,7 @@ T Cna_fill_type(T x, IntegerVector rows, T fill, unsigned int type = 1, bool inp
   } else {
     // type 1, 2, 3, 4
     T last_val(1);
-    for(int g=0; g<ngrps; g++) {
+    for(int g = 0; g < ngrps; g++) {
       R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
       R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
 
