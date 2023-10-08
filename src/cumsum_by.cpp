@@ -48,6 +48,8 @@ List Ccumope_by(List x, IntegerVector rows, int type) {
       *it = Ccumope_type<NumericVector>(as<NumericVector>(*it), rows, type);
     } else if(is<IntegerVector>(*it)){
       *it = Ccumope_type<IntegerVector>(as<IntegerVector>(*it), rows, type);
+    } else if(is<LogicalVector>(*it)){
+      *it = Ccumope_type<LogicalVector>(as<LogicalVector>(*it), rows, type);
     } else {
       stop("cumsum error: unimplemented type");
     }

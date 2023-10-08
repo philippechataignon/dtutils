@@ -11,7 +11,8 @@ dt <- data.table(
   id=rep(1:ngrp, each=nbygrp),
   c=sample((1:100 * 0.001 + 0.1), nbygrp * ngrp, replace=T),
   d=sample(1:100, nbygrp * ngrp, replace=T),
-  e=sample(1:100, nbygrp * ngrp, replace=T)
+  e=sample(1:100, nbygrp * ngrp, replace=T),
+  l=sample(c(T, F), nbygrp * ngrp, replace=T)
 )
 dt[, alea := runif(.N)]
 dt[899990, c := NA]
@@ -22,6 +23,11 @@ dt[, w := cumsum(c), by="id"]
 test_that("cumsum1", {
   expect_equal(dt$w, dt$z)
   expect_equal(is.na(dt[is.na(c), z]), TRUE)
+})
+
+dt[, wl := cumsum(l), by="id"]
+test_that("cumsum1", {
+  expect_equal(sum(dt$wl), 11500431)
 })
 
 dt[, zz := cumprod_by(.SD, "c", "id")]
