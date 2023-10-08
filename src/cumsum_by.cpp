@@ -24,23 +24,17 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
     for(R_xlen_t i = f; i < l; i++) {
-      R_xlen_t r, p;
-      if (nrows == 0) {
-        r = i;
-        p = i - 1;
-      } else {
-        r = rows[i] - 1;
-        p = rows[i >= 1 ? i - 1 : 0] - 1;
-      }
+      R_xlen_t r = (nrows == 0) ? i : rows[i] - 1;
       if (first[g]) {
-        ret[r] = x[r];
+        ret[r] = last_val[0] = x[r];
         first[g] = false;
       } else {
           if (type == 1) {
-            ret[r] = ret[p] + x[r];
+            ret[r] = last_val[0] + x[r];
         } else if (type == 2) {
-            ret[r] = ret[p] * x[r];
+            ret[r] = last_val[0] * x[r];
         }
+        last_val[0] = ret[r];
       }
     }
   }
