@@ -14,7 +14,7 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
   IntegerVector grps = rows.attr("starts");
   R_xlen_t ngrps = grps.size();
 
-  T ret = clone(x);
+  T ret(x.size());
   T last_val(1);
   LogicalVector first(ngrps);
   for(int i=0; i < ngrps; i++) {
