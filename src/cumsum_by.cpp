@@ -16,23 +16,26 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
 
   T ret(x.size());
   T last_val(1);
-  LogicalVector first(ngrps);
-  for(int i=0; i < ngrps; i++) {
-    first[i] = true;
-  }
   for(int g=0; g < ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+    bool first_g = true;
     for(R_xlen_t i = f; i < l; i++) {
       R_xlen_t r = (nrows == 0) ? i : rows[i] - 1;
-      if (first[g]) {
+      if (T::is_na(x[r])) {
+        ret[r] = first_g ? 0 : last_val[0];
+      } else if (first_g) {
         ret[r] = last_val[0] = x[r];
-        first[g] = false;
+        first_g = false;
       } else {
           if (type == 1) {
             ret[r] = last_val[0] + x[r];
         } else if (type == 2) {
             ret[r] = last_val[0] * x[r];
+        } else if (type == 3) {
+            ret[r] = x[r] < last_val[0] ? x[r] : last_val[0];
+        } else if (type == 4) {
+            ret[r] = x[r] > last_val[0] ? x[r] : last_val[0];
         }
         last_val[0] = ret[r];
       }

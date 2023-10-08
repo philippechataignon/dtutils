@@ -1,5 +1,5 @@
 group <- function(dt, by) {
-  data.table:::forderv(dt, by = by, retGrp = TRUE, sort = TRUE)
+  data.table:::forderv(dt, by = by, retGrp = TRUE, sort = F)
 }
 
 #' @title wrapper of [

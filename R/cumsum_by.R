@@ -43,3 +43,21 @@ cumsum_by <- function(dt, var = NULL, by = NULL) {
 cumprod_by <- function(dt, var = NULL, by = NULL) {
   cumope_by(dt, var, by, 2)
 }
+#' @title Cumulative min by
+#' @param dt a data.table
+#' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
+#' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
+#' @return a list with item for each var
+#' @export
+cummin_by <- function(dt, var = NULL, by = NULL) {
+  cumope_by(dt, var, by, 3)
+}
+#' @title Cumulative max by
+#' @param dt a data.table
+#' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
+#' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is omitted, dt is considered as one group
+#' @return a list with item for each var
+#' @export
+cummax_by <- function(dt, var = NULL, by = NULL) {
+  cumope_by(dt, var, by, 4)
+}
