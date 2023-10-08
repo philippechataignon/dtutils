@@ -18,41 +18,49 @@ T Cna_fill_type(T x, IntegerVector rows, T fill, unsigned int type = 1, bool inp
 
   T ret = inplace ? x : clone(x);
 
-  if (type == 0)
-  for(R_xlen_t i = 0; i<n; i++) {
-    if(T::is_na(x[i])) {
-      ret[i] = fill[0];
+  if (type == 0) {
+    for(R_xlen_t i = 0; i<n; i++) {
+      if(T::is_na(x[i])) {
+        ret[i] = fill[0];
+      }
     }
   } else {
+    // type 1, 2, 3, 4
+    T last_val(1);
     for(int g=0; g<ngrps; g++) {
       R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
       R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
 
       if (type == 4) {
-        for(R_xlen_t i = l - 1; i > f; i--) {
+        last_val[0] = T::get_na();
+        for(R_xlen_t i = l - 1; i >= f; i--) {
           R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
-          R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
-          if(T::is_na(ret[r1]) && !T::is_na(ret[r])) {
-            ret[r1] = ret[r];
+          if (T::is_na(ret[r])) {
+            ret[r] = last_val[0];
+          } else {
+            last_val[0] = x[r];
           }
         }
       }
       if (type == 1 || type== 3 || type == 4) {
-        for(R_xlen_t i = f + 1; i < l; i++) {
+        last_val[0] = T::get_na();
+        for(R_xlen_t i = f; i < l; i++) {
           R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
-          R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
-          if(T::is_na(ret[r]) && !T::is_na(ret[r1])) {
-            ret[r] = ret[r1];
+          if (T::is_na(ret[r])) {
+            ret[r] = last_val[0];
+          } else {
+            last_val[0] = x[r];
           }
         }
       }
-
       if (type == 2 || type== 3) {
-        for(R_xlen_t i = l - 1; i > f; i--) {
+        last_val[0] = T::get_na();
+        for(R_xlen_t i = l - 1; i >= f; i--) {
           R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
-          R_xlen_t r1 = nrows == 0 ? i - 1 : rows[i - 1] - 1;
-          if(T::is_na(ret[r1]) && !T::is_na(ret[r])) {
-            ret[r1] = ret[r];
+          if (T::is_na(ret[r])) {
+            ret[r] = last_val[0];
+          } else {
+            last_val[0] = x[r];
           }
         }
       }

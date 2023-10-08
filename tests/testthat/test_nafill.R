@@ -32,11 +32,6 @@ dt[(1:.N %% 5 == 0), e:=NA]
 
 vars = c("a", "c", "d", "e")
 
-setDTthreads()
-
-
-
-
 dt0 <- copy(dt)
 system.time(na_fill_by(dt0, by="id", inplace=T))
 test_that("na_fill_by0", {
