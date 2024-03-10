@@ -48,3 +48,8 @@ dt[, wwww := cummax(c), by="id"]
 test_that("cummax1", {
   expect_equal(dt[!is.na(wwww), wwww], dt[!is.na(wwww), zzzz])
 })
+
+s1=dt[, sum(c * d), id]
+test_that("weightedsum", {
+  expect_equal(s1[10000, V1], 314.896)
+})
