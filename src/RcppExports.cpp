@@ -111,6 +111,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Cweightedsum
+DataFrame Cweightedsum(DataFrame x, NumericVector wt, IntegerVector rows, bool na_rm);
+RcppExport SEXP _dtutils_Cweightedsum(SEXP xSEXP, SEXP wtSEXP, SEXP rowsSEXP, SEXP na_rmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type wt(wtSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cweightedsum(x, wt, rows, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
@@ -121,6 +135,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Clast_by", (DL_FUNC) &_dtutils_Clast_by, 2},
     {"_dtutils_Cany_by", (DL_FUNC) &_dtutils_Cany_by, 2},
     {"_dtutils_Call_by", (DL_FUNC) &_dtutils_Call_by, 2},
+    {"_dtutils_Cweightedsum", (DL_FUNC) &_dtutils_Cweightedsum, 4},
     {NULL, NULL, 0}
 };
 

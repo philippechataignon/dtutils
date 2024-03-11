@@ -11,7 +11,7 @@ DT(
   by,
   keyby,
   with = TRUE,
-  nomatch = getOption("datatable.nomatch", NA),
+  nomatch = NA,
   mult = "all",
   roll = FALSE,
   rollends = if (roll == "nearest") c(TRUE, TRUE) else if (roll >= 0) c(FALSE, TRUE) else
@@ -21,7 +21,8 @@ DT(
   verbose = getOption("datatable.verbose"),
   allow.cartesian = getOption("datatable.allow.cartesian"),
   drop = NULL,
-  on = NULL
+  on = NULL,
+  env = NULL
 )
 }
 \description{

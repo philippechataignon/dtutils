@@ -33,3 +33,7 @@ Call_by <- function(x, rows) {
     .Call('_dtutils_Call_by', PACKAGE = 'dtutils', x, rows)
 }
 
+Cweightedsum <- function(x, wt, rows, na_rm) {
+    .Call('_dtutils_Cweightedsum', PACKAGE = 'dtutils', x, wt, rows, na_rm)
+}
+
