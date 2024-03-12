@@ -8,6 +8,7 @@ T Cna_replace_t(T x, T fill, bool inplace = false) {
 
   T ret = inplace ? x : clone(x);
 
+  #pragma omp parallel for
   for(R_xlen_t i = 0; i < x.size(); ++i) {
     if(T::is_na(x[i])) {
       ret[i] = fill[0];
@@ -39,7 +40,7 @@ T Cna_fill_t(T x, IntegerVector rows, unsigned int type = 1, bool inplace = fals
     if (type == 4) {
       last_val[0] = T::get_na();
       for(R_xlen_t i = l - 1; i >= f; i--) {
-        R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
+        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
         if (T::is_na(ret[r])) {
           ret[r] = last_val[0];
         } else {
@@ -50,7 +51,7 @@ T Cna_fill_t(T x, IntegerVector rows, unsigned int type = 1, bool inplace = fals
     if (type == 1 || type== 3 || type == 4) {
       last_val[0] = T::get_na();
       for(R_xlen_t i = f; i < l; i++) {
-        R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
+        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
         if (T::is_na(ret[r])) {
           ret[r] = last_val[0];
         } else {
@@ -61,7 +62,7 @@ T Cna_fill_t(T x, IntegerVector rows, unsigned int type = 1, bool inplace = fals
     if (type == 2 || type== 3) {
       last_val[0] = T::get_na();
       for(R_xlen_t i = l - 1; i >= f; i--) {
-        R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
+        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
         if (T::is_na(ret[r])) {
           ret[r] = last_val[0];
         } else {
