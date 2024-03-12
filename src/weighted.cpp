@@ -1,5 +1,9 @@
 #include <Rcpp.h>
+#include <omp.h>
+
 using namespace Rcpp;
+
+// [[Rcpp::plugins(openmp)]]
 
 template<typename T>
 NumericVector Cweightedsum_t(T x, NumericVector wt, IntegerVector rows, bool na_rm) {
@@ -15,6 +19,7 @@ NumericVector Cweightedsum_t(T x, NumericVector wt, IntegerVector rows, bool na_
   R_xlen_t ngrps = grps.size();
   NumericVector ret(ngrps);
 
+  #pragma omp parallel for
   for(int g=0; g < ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
