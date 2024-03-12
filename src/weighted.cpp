@@ -27,11 +27,13 @@ NumericVector Cweightedsum_t(T x, NumericVector wt, IntegerVector rows, bool na_
       R_xlen_t r = (nrows == 0) ? i : rows[i] - 1;
       if (T::is_na(wt[r])) {
         continue;
-      } else if (T::is_na(x[r]) && !na_rm) {
-        ret[g] = NA_REAL;
-        break;
-      } else if (T::is_na(x[r]) && na_rm) {
-        continue;
+      } else if (T::is_na(x[r])) {
+        if (na_rm) {
+          continue;
+        } else {
+          ret[g] = NA_REAL;
+          break;
+        }
       } else {
         ret[g] += x[r] * wt[r];
       }
