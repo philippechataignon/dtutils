@@ -37,8 +37,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // Cna_fill_by
-List Cna_fill_by(List x, IntegerVector rows, unsigned int type, bool inplace, RObject fill);
-RcppExport SEXP _dtutils_Cna_fill_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP, SEXP fillSEXP) {
+List Cna_fill_by(List x, IntegerVector rows, unsigned int type, bool inplace);
+RcppExport SEXP _dtutils_Cna_fill_by(SEXP xSEXP, SEXP rowsSEXP, SEXP typeSEXP, SEXP inplaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -46,8 +46,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type type(typeSEXP);
     Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cna_fill_by(x, rows, type, inplace));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Cna_replace
+List Cna_replace(List x, RObject fill, bool inplace);
+RcppExport SEXP _dtutils_Cna_replace(SEXP xSEXP, SEXP fillSEXP, SEXP inplaceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type fill(fillSEXP);
-    rcpp_result_gen = Rcpp::wrap(Cna_fill_by(x, rows, type, inplace, fill));
+    Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cna_replace(x, fill, inplace));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -129,7 +141,8 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Ccoalesce_by", (DL_FUNC) &_dtutils_Ccoalesce_by, 3},
     {"_dtutils_Ccumope_by", (DL_FUNC) &_dtutils_Ccumope_by, 3},
-    {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 5},
+    {"_dtutils_Cna_fill_by", (DL_FUNC) &_dtutils_Cna_fill_by, 4},
+    {"_dtutils_Cna_replace", (DL_FUNC) &_dtutils_Cna_replace, 3},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 2},
     {"_dtutils_Cfirst_by", (DL_FUNC) &_dtutils_Cfirst_by, 2},
     {"_dtutils_Clast_by", (DL_FUNC) &_dtutils_Clast_by, 2},

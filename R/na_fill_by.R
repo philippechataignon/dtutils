@@ -3,13 +3,9 @@
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group
 #' @param type specifies type of filling : 0 constant 1 LOCF, 2 NOCB, 3 LOCF then NOCB. See note below.
-#' @param fill when type=0, NA is replaced by this 'fill' value. For type = 1, 2 or 3, 'fill' is unused.
 #' @param inplace when inplace = TRUE, na_fill is compute inplace
 #' @return a list with item for each var
 #' @note
-#' When \code{type = 0}, all NA values are replaced by the 'fill' value. Ex with 'fill = 0' : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)}
-#' gives \code{c(0, 1, 0, 0, 2, 0, 3, 0)}
-#'
 #' When \code{type = 1}, LOCF = Last Observation Carry Forward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(NA, 1, 1, 1, 2, 2, 3, 3)}
 #'
 #' When \code{type = 2}, NOCB = Next Observation Carry Backward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, NA)}
@@ -45,7 +41,7 @@
 #' dt3 <- copy(dt)
 #' dt3[, na_fill_by(.SD, vars, "id", inplace=TRUE)]
 #' @export
-na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fill = NA) {
+na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE) {
   nm <- names(dt)
   if (!is.null(by) && !all(by %in% nm)) {
     stop("When by is not NULL, all names in 'by' must be dt colnames")
@@ -75,7 +71,25 @@ na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE, fi
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  ret <- Cna_fill_by(ldt, grp, type, inplace, fill)
+  ret <- Cna_fill_by(ldt, grp, type, inplace)
+  if (inplace)
+    invisible(ret)
+  else
+    ret
+}
+
+#' @title Replace NA by constant
+#' @param dt a data.table
+#' @param fill NA is replaced by this 'fill' value
+#' @param inplace when inplace = TRUE, na_fill is compute inplace
+#' @return a list with item for each var
+#' @note
+#' All NA values are replaced by the 'fill' value. Ex with 'fill = 0' : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)}
+#' gives \code{c(0, 1, 0, 0, 2, 0, 3, 0)}
+#'
+#' @export
+na_replace <- function(dt, fill, inplace = FALSE) {
+  ret <- Cna_replace(dt, fill, inplace)
   if (inplace)
     invisible(ret)
   else

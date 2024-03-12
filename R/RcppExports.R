@@ -9,8 +9,12 @@ Ccumope_by <- function(x, rows, type) {
     .Call('_dtutils_Ccumope_by', PACKAGE = 'dtutils', x, rows, type)
 }
 
-Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE, fill = NULL) {
-    .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace, fill)
+Cna_fill_by <- function(x, rows, type = 1L, inplace = FALSE) {
+    .Call('_dtutils_Cna_fill_by', PACKAGE = 'dtutils', x, rows, type, inplace)
+}
+
+Cna_replace <- function(x, fill = NULL, inplace = FALSE) {
+    .Call('_dtutils_Cna_replace', PACKAGE = 'dtutils', x, fill, inplace)
 }
 
 Crow_number_by <- function(n, rows) {
