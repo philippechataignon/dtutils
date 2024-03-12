@@ -15,6 +15,7 @@ IntegerVector Crow_number_by(R_xlen_t n, IntegerVector rows) {
 
   IntegerVector ret(n);
 
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
@@ -40,6 +41,7 @@ LogicalVector Cfirst_by(R_xlen_t n, IntegerVector rows) {
 
   LogicalVector ret(n);
 
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
@@ -65,6 +67,7 @@ LogicalVector Clast_by(R_xlen_t n, IntegerVector rows) {
 
   LogicalVector ret(n);
 
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
@@ -87,6 +90,8 @@ LogicalVector Cany_by(LogicalVector x, IntegerVector rows) {
   IntegerVector grps = rows.attr("starts");
   R_xlen_t ngrps = grps.size();
   LogicalVector ret(ngrps);
+
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     // f = first index of group g
     R_xlen_t f = grps[g] - 1;
@@ -115,6 +120,8 @@ LogicalVector Call_by(LogicalVector x, IntegerVector rows) {
   IntegerVector grps = rows.attr("starts");
   R_xlen_t ngrps = grps.size();
   LogicalVector ret(ngrps);
+
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     // f = first index of group g
     R_xlen_t f = grps[g] - 1;
