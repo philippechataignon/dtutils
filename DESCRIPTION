@@ -17,5 +17,5 @@ Imports:
 LinkingTo: cpp11
 Suggests:
   testthat
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 SystemRequirements: C++11

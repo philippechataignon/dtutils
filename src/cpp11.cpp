@@ -6,10 +6,10 @@
 #include <R_ext/Visibility.h>
 
 // na_fill_by.cpp
-cpp11::writable::list Cna_fill_by(cpp11::writable::list input, cpp11::integers rows, cpp11::integers starts, int type);
-extern "C" SEXP _dtutils_Cna_fill_by(SEXP input, SEXP rows, SEXP starts, SEXP type) {
+cpp11::writable::list Ctest(cpp11::writable::list input);
+extern "C" SEXP _dtutils_Ctest(SEXP input) {
   BEGIN_CPP11
-    return cpp11::as_sexp(Cna_fill_by(cpp11::as_cpp<cpp11::decay_t<cpp11::writable::list>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(rows), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(starts), cpp11::as_cpp<cpp11::decay_t<int>>(type)));
+    return cpp11::as_sexp(Ctest(cpp11::as_cpp<cpp11::decay_t<cpp11::writable::list>>(input)));
   END_CPP11
 }
 // row_number_by.cpp
@@ -38,8 +38,8 @@ extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Cfirst_by",      (DL_FUNC) &_dtutils_Cfirst_by,      3},
     {"_dtutils_Clast_by",       (DL_FUNC) &_dtutils_Clast_by,       3},
-    {"_dtutils_Cna_fill_by",    (DL_FUNC) &_dtutils_Cna_fill_by,    4},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 3},
+    {"_dtutils_Ctest",          (DL_FUNC) &_dtutils_Ctest,          1},
     {NULL, NULL, 0}
 };
 }
