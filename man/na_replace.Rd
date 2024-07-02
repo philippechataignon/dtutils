@@ -4,7 +4,7 @@
 \alias{na_replace}
 \title{Replace NA by constant}
 \usage{
-na_replace(dt, fill, inplace = FALSE)
+na_replace(dt, var, fill = 0, inplace = FALSE)
 }
 \arguments{
 \item{dt}{a data.table}

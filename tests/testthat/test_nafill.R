@@ -3,7 +3,7 @@ library(data.table)
 
 dt <- data.table(val=c(NA, 1, NA, NA, 2, NA, 3, NA))
 test_that("na_fill_elem", {
-  expect_equal(dt[, na_replace(dt=.SD, fill=9)]$val, c(9, 1, 9, 9, 2, 9, 3, 9))
+  expect_equal(dt[, na_replace(dt=.SD, var="val", fill=9)]$val, c(9, 1, 9, 9, 2, 9, 3, 9))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=1)]$val, c(NA, 1, 1, 1, 2, 2, 3, 3))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=2)]$val, c(1, 1, 2, 2, 2, 3, 3, NA))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=3)]$val, c(1, 1, 1, 1, 2, 2, 3, 3))

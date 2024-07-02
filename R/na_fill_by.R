@@ -88,8 +88,17 @@ na_fill_by <- function(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE) {
 #' gives \code{c(0, 1, 0, 0, 2, 0, 3, 0)}
 #'
 #' @export
-na_replace <- function(dt, fill, inplace = FALSE) {
-  ret <- Cna_replace(dt, fill, inplace)
+na_replace <- function(dt, var, fill=0, inplace = FALSE) {
+  nm <- names(dt)
+  if (!all(var %in% nm)) {
+    stop("All names in 'var' must be dt colnames")
+  }
+  if (!length(inplace) == 1L) {
+    stop("inplace must be TRUE or FALSE")
+  }
+  ldt <- lapply(var, function(x) dt[[x]])
+  names(ldt) <- var
+  ret <- Cna_replace(ldt, fill, inplace)
   if (inplace)
     invisible(ret)
   else
