@@ -26,6 +26,12 @@ vars = c("a", "c", "d", "e")
 dt0 <- copy(dt)
 system.time(shift_by(dt0, by="id", inplace=T))
 
+dt[, c("la", "lb") := shift_by(.SD, by="id", var=c("a", "b"))]
+dt[, c("ma", "mb") := shift(.SD), by="id", .SDcols = c("a", "b")]
+
 test_that("na_fill_by0", {
   expect_equal(dt0[id==18000, head(a)], c(NA, 49L, NA, 6L, NA, 84L))
+  expect_identical(dt$la, dt$ma)
+  expect_identical(dt$lb, dt$mb)
 })
+
