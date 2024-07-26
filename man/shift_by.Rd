@@ -4,7 +4,14 @@
 \alias{shift_by}
 \title{shift/lag by group}
 \usage{
-shift_by(dt, var = NULL, by = NULL, inplace = FALSE)
+shift_by(
+  dt,
+  var = NULL,
+  by = NULL,
+  n = 1,
+  type = c("lag", "lead"),
+  inplace = FALSE
+)
 }
 \arguments{
 \item{dt}{a data.table}

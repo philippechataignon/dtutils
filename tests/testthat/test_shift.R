@@ -29,9 +29,19 @@ system.time(shift_by(dt0, by="id", inplace=T))
 dt[, c("la", "lb") := shift_by(.SD, by="id", var=c("a", "b"))]
 dt[, c("ma", "mb") := shift(.SD), by="id", .SDcols = c("a", "b")]
 
+dt[, c("lc", "ld") := shift_by(.SD, by="id", n=2, type="lead", var=c("a", "b"))]
+dt[, c("mc", "md") := shift(.SD, n=2, type="lead"), by="id", .SDcols = c("a", "b")]
+
+dt[, c("le", "lf") := shift_by(.SD, by="b", n=5, type="lag", var=c("a", "c"))]
+dt[, c("me", "mf") := shift(.SD, n=5, type="lag"), by="b", .SDcols = c("a", "c")]
+
 test_that("na_fill_by0", {
   expect_equal(dt0[id==18000, head(a)], c(NA, 49L, NA, 6L, NA, 84L))
   expect_identical(dt$la, dt$ma)
   expect_identical(dt$lb, dt$mb)
+  expect_identical(dt$lc, dt$mc)
+  expect_identical(dt$ld, dt$md)
+  expect_identical(dt$le, dt$me)
+  expect_identical(dt$lf, dt$mf)
 })
 

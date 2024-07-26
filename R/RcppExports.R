@@ -37,8 +37,8 @@ Call_by <- function(x, rows) {
     .Call('_dtutils_Call_by', PACKAGE = 'dtutils', x, rows)
 }
 
-Cshift_by <- function(x, rows, inplace = FALSE) {
-    .Call('_dtutils_Cshift_by', PACKAGE = 'dtutils', x, rows, inplace)
+Cshift_by <- function(x, rows, n, inplace = FALSE) {
+    .Call('_dtutils_Cshift_by', PACKAGE = 'dtutils', x, rows, n, inplace)
 }
 
 Cweightedsum <- function(x, wt, rows, na_rm) {

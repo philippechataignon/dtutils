@@ -5,7 +5,14 @@
 #' @param inplace when inplace = TRUE, na_fill is compute inplace
 #' @return a list with item for each var
 #' @export
-shift_by <- function(dt, var = NULL, by = NULL, inplace = FALSE) {
+shift_by <- function(dt, var = NULL, by = NULL, n = 1,
+                     type = c("lag", "lead") ,inplace = FALSE)
+{
+  type = match.arg(type)
+  n <- as.integer(n)
+  if (type == "lag") {
+    n <- -n
+  }
   nm <- names(dt)
   if (!is.null(by) && !all(by %in% nm)) {
     stop("When by is not NULL, all names in 'by' must be dt colnames")
@@ -32,7 +39,7 @@ shift_by <- function(dt, var = NULL, by = NULL, inplace = FALSE) {
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  ret <- Cshift_by(ldt, grp, inplace)
+  ret <- Cshift_by(ldt, grp, n, inplace)
   if (inplace)
     invisible(ret)
   else
