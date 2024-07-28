@@ -29,44 +29,39 @@ T Cna_fill_t(T x, IntegerVector rows, unsigned int type = 1, bool inplace = fals
 
   IntegerVector grps = rows.attr("starts");
   R_xlen_t ngrps = grps.size();
-
   T ret = inplace ? x : clone(x);
 
-  for(int g = 0; g < ngrps; g++) {
-    T last_val(1);
-    R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
-    R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+  if (type == 1 || type== 3) {
+    #pragma omp parallel for
+    for(int g = 0; g < ngrps; ++g) {
+      R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
+      R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+      for(R_xlen_t i = f + 1; i < l; ++i) {
+        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
+        R_xlen_t rs = nrows == 0 ? i - 1: rows[i - 1] - 1;
+        if (T::is_na(ret[r])) {
+          ret[r] = ret[rs];
+        } else {
+          ret[r] = x[r];
+        }
+      }
+    }
+  }
 
-    if (type == 4) {
-      last_val[0] = T::get_na();
-      for(R_xlen_t i = l - 1; i >= f; i--) {
+  if (type == 2 || type== 3) {
+    #pragma omp parallel for
+    for(int g = 0; g < ngrps; ++g) {
+      R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
+      R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
+      for(R_xlen_t i = l - 2; i >= f; --i) {
         R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
+        R_xlen_t rs = nrows == 0 ? i + 1: rows[i + 1] - 1;
         if (T::is_na(ret[r])) {
-          ret[r] = last_val[0];
+          ret[r] = ret[rs];
         } else {
-          last_val[0] = x[r];
-        }
-      }
-    }
-    if (type == 1 || type== 3 || type == 4) {
-      last_val[0] = T::get_na();
-      for(R_xlen_t i = f; i < l; i++) {
-        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
-        if (T::is_na(ret[r])) {
-          ret[r] = last_val[0];
-        } else {
-          last_val[0] = x[r];
-        }
-      }
-    }
-    if (type == 2 || type== 3) {
-      last_val[0] = T::get_na();
-      for(R_xlen_t i = l - 1; i >= f; i--) {
-        R_xlen_t r = nrows == 0 ? i : rows[i] - 1;
-        if (T::is_na(ret[r])) {
-          ret[r] = last_val[0];
-        } else {
-          last_val[0] = x[r];
+          if (type == 2) {
+            ret[r] = x[r];
+          }
         }
       }
     }

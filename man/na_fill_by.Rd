@@ -2,7 +2,7 @@
 % Please edit documentation in R/na_fill_by.R
 \name{na_fill_by}
 \alias{na_fill_by}
-\title{Replace NA by constant, previous or next value, optionally by group}
+\title{Replace NA by previous or next value, optionally by group}
 \usage{
 na_fill_by(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE)
 }
@@ -13,7 +13,7 @@ na_fill_by(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE)
 
 \item{by}{name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group}
 
-\item{type}{specifies type of filling : 0 constant 1 LOCF, 2 NOCB, 3 LOCF then NOCB. See note below.}
+\item{type}{specifies type of filling : 1 LOCF (default), 2 NOCB, 3 LOCF then NOCB. See note below.}
 
 \item{inplace}{when inplace = TRUE, na_fill is compute inplace}
 }
@@ -21,7 +21,7 @@ na_fill_by(dt, var = NULL, by = NULL, type = 1L, inplace = FALSE)
 a list with item for each var
 }
 \description{
-Replace NA by constant, previous or next value, optionally by group
+Replace NA by previous or next value, optionally by group
 }
 \note{
 When \code{type = 1}, LOCF = Last Observation Carry Forward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(NA, 1, 1, 1, 2, 2, 3, 3)}
@@ -29,8 +29,6 @@ When \code{type = 1}, LOCF = Last Observation Carry Forward. Ex : \code{c(NA, 1,
 When \code{type = 2}, NOCB = Next Observation Carry Backward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, NA)}
 
 When \code{type = 3}, LOCF then NOCB. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 1, 1, 2, 2, 3, 3)}.
-
-When \code{type = 4}, NOCB then LOCF. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, 3)}.
 }
 \examples{
 library(data.table)
