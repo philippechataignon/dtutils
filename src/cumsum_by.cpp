@@ -1,4 +1,6 @@
 #include <Rcpp.h>
+#include <omp.h>
+
 using namespace Rcpp;
 
 template<typename T>
@@ -15,7 +17,7 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
   R_xlen_t ngrps = grps.size();
 
   T ret(x.size());
-  T last_val(1);
+  #pragma omp parallel for
   for(int g=0; g < ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (indiceC = indiceR - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
@@ -23,21 +25,26 @@ T Ccumope_type(T x, IntegerVector rows, int type) {
     for(R_xlen_t i = f; i < l; i++) {
       R_xlen_t r = (nrows == 0) ? i : rows[i] - 1;
       if (T::is_na(x[r])) {
-        ret[r] = first_g ? 0 : last_val[0];
+        if (i == f) {
+          ret[r] = 0;
+        } else {
+          R_xlen_t r1 = (nrows == 0) ? i - 1: rows[i - 1] - 1;
+          ret[r] = ret[r1];
+        }
       } else if (first_g) {
-        ret[r] = last_val[0] = x[r];
+        ret[r] = x[r];
         first_g = false;
       } else {
+          R_xlen_t r1 = (nrows == 0) ? i - 1: rows[i - 1] - 1;
           if (type == 1) {
-            ret[r] = last_val[0] + x[r];
+            ret[r] = ret[r1] + x[r];
         } else if (type == 2) {
-            ret[r] = last_val[0] * x[r];
+            ret[r] = ret[r1] * x[r];
         } else if (type == 3) {
-            ret[r] = x[r] < last_val[0] ? x[r] : last_val[0];
+            ret[r] = x[r] < ret[r1] ? x[r] : ret[r1];
         } else if (type == 4) {
-            ret[r] = x[r] > last_val[0] ? x[r] : last_val[0];
+            ret[r] = x[r] > ret[r1] ? x[r] : ret[r1];
         }
-        last_val[0] = ret[r];
       }
     }
   }
