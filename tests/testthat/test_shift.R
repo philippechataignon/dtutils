@@ -35,13 +35,20 @@ dt[, c("mc", "md") := shift(.SD, n=2, type="lead"), by="id", .SDcols = c("a", "b
 dt[, c("le", "lf") := shift_by(.SD, by="b", n=5, type="lag", var=c("a", "c"))]
 dt[, c("me", "mf") := shift(.SD, n=5, type="lag"), by="b", .SDcols = c("a", "c")]
 
+dt[, c("lg", "lh") := shift_by(.SD, by="b", n=5, type="lag", fill=0, var=c("a", "c"))]
+dt[, c("mg", "mh") := shift(.SD, n=5, type="lag", fill=0), by="b", .SDcols = c("a", "c")]
+
+dt[, za := shift_by(.SD, by="id", n=5, type="lag", fill="Z", var=c("b"))]
+dt[, zb := shift(.SD, n=5, type="lag", fill="Z"), by="id", .SDcols = c("b")]
+
 test_that("na_fill_by0", {
   expect_equal(dt0[id==18000, head(a)], c(NA, 49L, NA, 6L, NA, 84L))
   expect_identical(dt$la, dt$ma)
   expect_identical(dt$lb, dt$mb)
-  expect_identical(dt$lc, dt$mc)
   expect_identical(dt$ld, dt$md)
   expect_identical(dt$le, dt$me)
   expect_identical(dt$lf, dt$mf)
+  expect_identical(dt$lg, dt$mg)
+  expect_identical(dt$lh, dt$mh)
+  expect_identical(dt$za, dt$zb)
 })
-

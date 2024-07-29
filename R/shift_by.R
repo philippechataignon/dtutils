@@ -4,11 +4,12 @@
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group
 #' @param n offset by which to lead or lag the input, 1 by default
 #' @param type `lag` or `lead`, default to `lag`
+#' @param fill value to use for padding before/after shift positions
 #' @param inplace when inplace = TRUE, na_fill is compute inplace
 #' @return a list with item for each var
 #' @export
 shift_by <- function(dt, var = NULL, by = NULL, n = 1,
-                     type = c("lag", "lead") ,inplace = FALSE)
+                     type = c("lag", "lead"), fill=NA, inplace = FALSE)
 {
   type = match.arg(type)
   n <- as.integer(n)
@@ -41,7 +42,7 @@ shift_by <- function(dt, var = NULL, by = NULL, n = 1,
   }
   ldt <- lapply(var, function(x) dt[[x]])
   names(ldt) <- var
-  ret <- Cshift_by(ldt, grp, n, inplace)
+  ret <- Cshift_by(ldt, grp, n, fill, inplace)
   if (inplace)
     invisible(ret)
   else

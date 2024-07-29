@@ -10,6 +10,7 @@ shift_by(
   by = NULL,
   n = 1,
   type = c("lag", "lead"),
+  fill = NA,
   inplace = FALSE
 )
 }
@@ -23,6 +24,8 @@ shift_by(
 \item{n}{offset by which to lead or lag the input, 1 by default}
 
 \item{type}{`lag` or `lead`, default to `lag`}
+
+\item{fill}{value to use for padding before/after shift positions}
 
 \item{inplace}{when inplace = TRUE, na_fill is compute inplace}
 }

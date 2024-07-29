@@ -124,16 +124,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // Cshift_by
-List Cshift_by(List x, IntegerVector rows, int n, bool inplace);
-RcppExport SEXP _dtutils_Cshift_by(SEXP xSEXP, SEXP rowsSEXP, SEXP nSEXP, SEXP inplaceSEXP) {
+List Cshift_by(List x, IntegerVector rows, int n, RObject fill, bool inplace);
+RcppExport SEXP _dtutils_Cshift_by(SEXP xSEXP, SEXP rowsSEXP, SEXP nSEXP, SEXP fillSEXP, SEXP inplaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rows(rowsSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< RObject >::type fill(fillSEXP);
     Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP);
-    rcpp_result_gen = Rcpp::wrap(Cshift_by(x, rows, n, inplace));
+    rcpp_result_gen = Rcpp::wrap(Cshift_by(x, rows, n, fill, inplace));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -162,7 +163,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Clast_by", (DL_FUNC) &_dtutils_Clast_by, 2},
     {"_dtutils_Cany_by", (DL_FUNC) &_dtutils_Cany_by, 2},
     {"_dtutils_Call_by", (DL_FUNC) &_dtutils_Call_by, 2},
-    {"_dtutils_Cshift_by", (DL_FUNC) &_dtutils_Cshift_by, 4},
+    {"_dtutils_Cshift_by", (DL_FUNC) &_dtutils_Cshift_by, 5},
     {"_dtutils_Cweightedsum", (DL_FUNC) &_dtutils_Cweightedsum, 4},
     {NULL, NULL, 0}
 };

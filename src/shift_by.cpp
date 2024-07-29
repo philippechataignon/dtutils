@@ -4,7 +4,7 @@
 using namespace Rcpp;
 
 template<typename T>
-T Cshift_t(T x, IntegerVector rows, int shift, bool inplace = false) {
+T Cshift_t(T x, IntegerVector rows, int shift, T fill, bool inplace = false) {
   R_xlen_t n = x.size();
   R_xlen_t nrows = rows.size();
 
@@ -34,7 +34,7 @@ T Cshift_t(T x, IntegerVector rows, int shift, bool inplace = false) {
           R_xlen_t rs = nrows == 0 ? i + shift: rows[i + shift] - 1;
           ret[r] = x[rs];
         } else {
-          ret[r] = T::get_na();
+          ret[r] = fill[0];
         }
       }
     } else if (is_lag) {
@@ -44,7 +44,7 @@ T Cshift_t(T x, IntegerVector rows, int shift, bool inplace = false) {
           R_xlen_t rs = nrows == 0 ? i - shift: rows[i - shift] - 1;
           ret[r] = x[rs];
         } else {
-          ret[r] = T::get_na();
+          ret[r] = fill[0];
         }
       }
     }
@@ -53,18 +53,18 @@ T Cshift_t(T x, IntegerVector rows, int shift, bool inplace = false) {
 }
 
 // [[Rcpp::export]]
-List Cshift_by(List x, IntegerVector rows, int n, bool inplace = false) {
+List Cshift_by(List x, IntegerVector rows, int n, RObject fill = R_NilValue, bool inplace = false) {
   for(List::iterator it = x.begin(); it != x.end(); ++it) {
     if(is<NumericVector>(*it)){
-      *it = Cshift_t<NumericVector>(as<NumericVector>(*it), rows, n, inplace);
+      *it = Cshift_t<NumericVector>(as<NumericVector>(*it), rows, n, as<NumericVector>(fill), inplace);
     } else if(is<IntegerVector>(*it)){
-      *it = Cshift_t<IntegerVector>(as<IntegerVector>(*it), rows, n, inplace);
+      *it = Cshift_t<IntegerVector>(as<IntegerVector>(*it), rows, n, as<IntegerVector>(fill), inplace);
     } else if(is<StringVector>(*it)){
-      *it = Cshift_t<StringVector> (as<StringVector>(*it),  rows, n, inplace);
+      *it = Cshift_t<StringVector> (as<StringVector>(*it),  rows, n, as<StringVector>(fill), inplace);
     } else if(is<LogicalVector>(*it)){
-      *it = Cshift_t<LogicalVector>(as<LogicalVector>(*it), rows, n, inplace);
+      *it = Cshift_t<LogicalVector>(as<LogicalVector>(*it), rows, n, as<LogicalVector>(fill), inplace);
     } else if(is<ComplexVector>(*it)){
-      *it = Cshift_t<ComplexVector>(as<ComplexVector>(*it), rows, n, inplace);
+      *it = Cshift_t<ComplexVector>(as<ComplexVector>(*it), rows, n, as<ComplexVector>(fill), inplace);
     } else {
       stop("shift error: unimplemented type");
     }
