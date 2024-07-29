@@ -1,5 +1,8 @@
 #include <Rcpp.h>
+#include <omp.h>
+
 using namespace Rcpp;
+// [[Rcpp::plugins(openmp)]]
 
 template<typename T>
 T Cna_replace_t(T x, T fill, bool inplace = false) {

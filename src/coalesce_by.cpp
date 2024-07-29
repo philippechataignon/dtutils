@@ -2,6 +2,7 @@
 #include <omp.h>
 
 using namespace Rcpp;
+// [[Rcpp::plugins(openmp)]]
 
 template<typename T>
 T Ccoalesce_type(T x, IntegerVector rows) {

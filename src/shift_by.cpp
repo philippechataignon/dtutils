@@ -2,6 +2,7 @@
 #include <omp.h>
 
 using namespace Rcpp;
+// [[Rcpp::plugins(openmp)]]
 
 template<typename T>
 T Cshift_t(T x, IntegerVector rows, int shift, T fill, bool inplace = false) {

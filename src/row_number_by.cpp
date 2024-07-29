@@ -1,5 +1,8 @@
 #include <Rcpp.h>
+#include <omp.h>
+
 using namespace Rcpp;
+// [[Rcpp::plugins(openmp)]]
 
 // [[Rcpp::export]]
 IntegerVector Crow_number_by(R_xlen_t n, IntegerVector rows) {

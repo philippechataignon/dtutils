@@ -2,6 +2,7 @@
 #include <omp.h>
 
 using namespace Rcpp;
+// [[Rcpp::plugins(openmp)]]
 
 template<typename T>
 T Ccumope_type(T x, IntegerVector rows, int type) {
