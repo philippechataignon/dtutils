@@ -1,4 +1,6 @@
 #include <Rcpp.h>
+#include <omp.h>
+
 using namespace Rcpp;
 
 template<typename T>
@@ -16,6 +18,7 @@ T Ccoalesce_type(T x, IntegerVector rows) {
 
   T ret(ngrps);
 
+  #pragma omp parallel for
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
