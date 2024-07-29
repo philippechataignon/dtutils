@@ -22,9 +22,8 @@ T Ccoalesce_type(T x, IntegerVector rows) {
   for(int g=0; g<ngrps; g++) {
     R_xlen_t f = grps[g] - 1; // start indice of group g (C indice = R indice - 1)
     R_xlen_t l = g == (ngrps - 1) ? n : grps[g + 1] - 1; // last indice (n if last group)
-    // init return with first value of group
-    R_xlen_t ff  = nrows == 0 ? f : rows[f] - 1;
-    ret[g] = x[ff];
+    // init return value with NA
+    ret[g] = T::get_na();
     for(R_xlen_t i = f; i < l; i++) {
       R_xlen_t r  = nrows == 0 ? i : rows[i] - 1;
       if(!T::is_na(x[r])) {
