@@ -7,7 +7,6 @@ test_that("na_fill_elem", {
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=1)]$val, c(NA, 1, 1, 1, 2, 2, 3, 3))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=2)]$val, c(1, 1, 2, 2, 2, 3, 3, NA))
   expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=3)]$val, c(1, 1, 1, 1, 2, 2, 3, 3))
-  expect_equal(dt[, na_fill_by(dt=.SD, var="val", type=4)]$val, c(1, 1, 2, 2, 2, 3, 3, 3))
 })
 
 # pour compatibilité seed
@@ -66,8 +65,14 @@ test_that("na_fill_by4", {
 })
 
 dt5 <- copy(dt)
-system.time(na_fill_by(dt5, inplace=T))
-test_that("na_fill_by5", {
-  expect_equal(dt5[2, a], 5)
-  expect_false(identical(dt1, dt5))
+dt6 <- copy(dt)
+vars2 = c("id", "a", "c", "d", "e")
+system.time(dt5[, na_fill_by(.SD, vars2, "b", inplace=T)])
+system.time(dt6[, (vars2) := setnafill(.SD, type="locf", cols = vars2), by=b])
+test_that("na_fill_by4", {
+  expect_identical(dt5$a, dt6$a)
+  expect_identical(dt5$c, dt6$c)
+  expect_identical(dt5$d, dt6$d)
+  expect_identical(dt5$e, dt6$e)
+  expect_identical(dt5$id, dt6$id)
 })

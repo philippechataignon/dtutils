@@ -1,8 +1,8 @@
-#' @title Replace NA by constant, previous or next value, optionally by group
+#' @title Replace NA by previous or next value, optionally by group
 #' @param dt a data.table
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group
-#' @param type specifies type of filling : 0 constant 1 LOCF, 2 NOCB, 3 LOCF then NOCB. See note below.
+#' @param type specifies type of filling : 1 LOCF (default), 2 NOCB, 3 LOCF then NOCB. See note below.
 #' @param inplace when inplace = TRUE, na_fill is compute inplace
 #' @return a list with item for each var
 #' @note
@@ -11,9 +11,6 @@
 #' When \code{type = 2}, NOCB = Next Observation Carry Backward. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, NA)}
 #'
 #' When \code{type = 3}, LOCF then NOCB. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 1, 1, 2, 2, 3, 3)}.
-#'
-#' When \code{type = 4}, NOCB then LOCF. Ex : \code{c(NA, 1, NA, NA, 2, NA, 3, NA)} gives \code{c(1, 1, 2, 2, 2, 3, 3, 3)}.
-#'
 #' @examples
 #' library(data.table)
 #' ngrp <- 18000

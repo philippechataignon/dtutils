@@ -2,6 +2,8 @@
 #' @param dt a data.table
 #' @param var name(s) of variable(s) with atomic values ; if 'var' is omitted, all variables not in 'by' are selected
 #' @param by name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group
+#' @param n offset by which to lead or lag the input, 1 by default
+#' @param type `lag` or `lead`, default to `lag`
 #' @param inplace when inplace = TRUE, na_fill is compute inplace
 #' @return a list with item for each var
 #' @export

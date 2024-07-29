@@ -20,6 +20,10 @@ shift_by(
 
 \item{by}{name(s) of variable(s) which determines groups (optional) ; if 'by' is ommitted, dt is considered as one group}
 
+\item{n}{offset by which to lead or lag the input, 1 by default}
+
+\item{type}{`lag` or `lead`, default to `lag`}
+
 \item{inplace}{when inplace = TRUE, na_fill is compute inplace}
 }
 \value{
