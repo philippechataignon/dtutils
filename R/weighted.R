@@ -1,10 +1,10 @@
-#' @title Compute weigthed sum
+#' @title Compute weighted sum
 #' @param dt a data.table
 #' @param wt numeric vector of weights
 #' @param by name(s) of variable(s) which determines groups
 #' @return A dataframe
 #' @export
-weightedsum <- function(dt, wt, by=NULL, na.rm=F) {
+wsum_by <- function(dt, wt, by=NULL, na.rm=F) {
   setDT(dt)
   nm <- colnames(dt)
   var <- setdiff(nm, by)
