@@ -12,6 +12,8 @@ NumericVector Cweightedsum_t(T x, NumericVector wt, IntegerVector rows, bool na_
 
   if (nrows != 0 && n != rows.size())
     stop("x and rows must have the same length");
+  if (n != wt.size())
+    stop("x and wt must have the same length");
   if (!rows.hasAttribute("starts"))
     stop("rows must have 'starts' attribute");
 
