@@ -20,7 +20,7 @@ dt = dt[order(alea)]
 dt[1, d := NA]
 
 s1=dt[, .(d=sum(d*c, na.rm=T), e=sum(e*c, na.rm=T)), by=id][order(id)]
-s2=wsum_by(dt[, .(id, d, e)], dt$c, "id", na.rm=T)[order(id)]
+s2=wsum_by(dt[, .(id, d, e)], wt = dt$c, by = "id", na.rm=T)[order(id)]
 
 test_that("wsum1", {
   expect_equal(s1$d, s2$d)
@@ -28,7 +28,7 @@ test_that("wsum1", {
 })
 
 s1=dt[, .(d=sum(d*c, na.rm=F), e=sum(e*c, na.rm=F)), by=id][order(id)]
-s2=wsum_by(dt[, .(id, d, e)], dt$c, "id", na.rm=F)[order(id)]
+s2=wsum_by(dt[, .(id, d, e)], wt = dt$c, by = "id", na.rm=F)[order(id)]
 test_that("weightedsum2", {
   expect_equal(s1$d[2:nrow(s1)], s2$d[2:nrow(s2)])
   expect_equal(s1$e[2:nrow(s1)], s2$e[2:nrow(s2)])

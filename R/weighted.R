@@ -18,11 +18,10 @@ wsum_by <- function(dt, wt, by=NULL, na.rm=F) {
   ret <- Cweightedsum((dt[, var, with=F]), wt, grp, na.rm)
   if (!is.null(by)) {
     if (length(grp) == 0) {
-      set(ret, j=by, value=dt[attr(grp, "starts"), get(by)])
+      ret = cbind(dt[attr(grp, "starts"), ..by], ret)
     } else {
-      set(ret, j=by, value=dt[grp[attr(grp, "starts")], get(by)])
+      ret = cbind(dt[grp[attr(grp, "starts")], ..by], ret)
     }
   }
-  setcolorder(ret, by)
   ret
 }
