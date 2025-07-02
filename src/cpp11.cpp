@@ -12,6 +12,20 @@ extern "C" SEXP _dtutils_Ctest(SEXP input) {
     return cpp11::as_sexp(Ctest(cpp11::as_cpp<cpp11::decay_t<cpp11::writable::list>>(input)));
   END_CPP11
 }
+// rle.cpp
+list Crle_cpp(doubles x);
+extern "C" SEXP _dtutils_Crle_cpp(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Crle_cpp(cpp11::as_cpp<cpp11::decay_t<doubles>>(x)));
+  END_CPP11
+}
+// rle.cpp
+logicals Cnfirst_by(strings x);
+extern "C" SEXP _dtutils_Cnfirst_by(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Cnfirst_by(cpp11::as_cpp<cpp11::decay_t<strings>>(x)));
+  END_CPP11
+}
 // row_number_by.cpp
 logicals Cfirst_by(int n, integers rows, integers grps);
 extern "C" SEXP _dtutils_Cfirst_by(SEXP n, SEXP rows, SEXP grps) {
@@ -38,6 +52,8 @@ extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_dtutils_Cfirst_by",      (DL_FUNC) &_dtutils_Cfirst_by,      3},
     {"_dtutils_Clast_by",       (DL_FUNC) &_dtutils_Clast_by,       3},
+    {"_dtutils_Cnfirst_by",     (DL_FUNC) &_dtutils_Cnfirst_by,     1},
+    {"_dtutils_Crle_cpp",       (DL_FUNC) &_dtutils_Crle_cpp,       1},
     {"_dtutils_Crow_number_by", (DL_FUNC) &_dtutils_Crow_number_by, 3},
     {"_dtutils_Ctest",          (DL_FUNC) &_dtutils_Ctest,          1},
     {NULL, NULL, 0}

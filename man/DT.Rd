@@ -22,7 +22,8 @@ DT(
   allow.cartesian = getOption("datatable.allow.cartesian"),
   drop = NULL,
   on = NULL,
-  env = NULL
+  env = NULL,
+  showProgress = getOption("datatable.showProgress", interactive())
 )
 }
 \description{

@@ -1,6 +1,11 @@
-#' @title Replace NA by constant, previous or next value, optionally by group
 #' @export
-na_fill_by <- function(dt)
+rle_cpp <- function(dt)
 {
-  Ctest(dt)
+  Crle_cpp(dt)
+}
+
+#' @export
+nfirst_by <- function(dt)
+{
+  Cnfirst_by(as.character(dt))
 }

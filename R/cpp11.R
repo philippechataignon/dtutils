@@ -4,6 +4,14 @@ Ctest <- function(input) {
   .Call(`_dtutils_Ctest`, input)
 }
 
+Crle_cpp <- function(x) {
+  .Call(`_dtutils_Crle_cpp`, x)
+}
+
+Cnfirst_by <- function(x) {
+  .Call(`_dtutils_Cnfirst_by`, x)
+}
+
 Cfirst_by <- function(n, rows, grps) {
   .Call(`_dtutils_Cfirst_by`, n, rows, grps)
 }
